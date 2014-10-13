@@ -63,12 +63,12 @@ Create and store notebooks in Google Drive and allow for collaborative editing o
 Choose your own adventure (kernel)!
 =======================================================
 - `IRKernel` is a package that allows us to run a CoLaboratory (Jupyter) notebook with an `R` kernel.
-- ~~Your turn~~: Let's get CoLaboratory up and running so we can all play!
+- **Your turn**: Let's get CoLaboratory up and running so we can all play!
 
 Operating System | Installation Guide
 -----------------|-------------------
-Linux (Ubuntu 14.04) | <a href="resources/linux_installation.txt" target="_blank">click</a>
-Mac OSX | <a href="resources/macosx_installation.txt" target="_blank">click</a>
+Linux (Ubuntu 14.04) | <a href="resources/linux_installation.html" target="_blank">click</a>
+Mac OSX | <a href="resources/macosx_installation.html" target="_blank">click</a>
 Windows 7/8 | Find a friend.
 
 After successful installation
