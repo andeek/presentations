@@ -17,7 +17,7 @@ Andee Kaplan & Eric Hare
   - To install,
  
     ```
-    sudo apt-get easy_install pip
+    sudo easy_install pip
     ```
 3. Install `ipython notebooks`
   - To install,
