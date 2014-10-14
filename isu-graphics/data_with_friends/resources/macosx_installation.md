@@ -11,7 +11,7 @@ Andee Kaplan & Eric Hare
   - To install, if it's not already
   
     ```
-    sudo apt-get install python
+    https://www.python.org/download/
     ```
 2. Install `pip`
   - To install,
