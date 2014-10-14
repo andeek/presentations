@@ -19,17 +19,17 @@ Andee Kaplan & Eric Hare
     ```
     sudo apt-get install python-pip
     ```
-3. Install `ipython notebooks`
+3. Install `python-dev`, `libzmq` and `libcurl`
+  - To install,
+  
+    ```
+    sudo apt-get install python-dev libzmq3-dev libcurl4-openssl-dev
+    ```
+4. Install `ipython notebooks`
   - To install,
   
     ```
     sudo pip install "ipython[notebook]"
-    ```
-4. Install `libzmq` and `libcurl`
-  - To install,
-  
-    ```
-    sudo apt-get install libzmq3-dev libcurl4-openssl-dev
     ```
     
 5. Install `IRKernel`
