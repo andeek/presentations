@@ -13,19 +13,25 @@ Andee Kaplan & Eric Hare
     ```
     https://www.python.org/download/
     ```
-2. Install `pip`
+2. Install `homebrew`
+   - To install,
+ 
+    ```
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    ``` 
+3. Install `pip`
   - To install,
  
     ```
     sudo easy_install pip
     ```
-3. Install `ipython notebooks`
+4. Install `ipython notebooks`
   - To install,
   
     ```
     sudo pip install "ipython[notebook]"
     ```
-4. Install `libzmq` with `homebrew`
+5. Install `libzmq` with `homebrew`
   - To install or upgrade,
   
     ```
@@ -36,7 +42,7 @@ Andee Kaplan & Eric Hare
     brew upgrade zmq
     ```
     
-5. Install `IRKernel`
+6. Install `IRKernel`
   - To install, in R
   
     
@@ -49,7 +55,7 @@ Andee Kaplan & Eric Hare
     install_github("takluyver/IRdisplay")
     install_github("takluyver/IRkernel")
     ```
-6. Install CoLaboratory    
+7. Install CoLaboratory    
   - Clone CoLaboratory repo
  
     ```
@@ -61,7 +67,7 @@ Andee Kaplan & Eric Hare
     cd colaboratory
     pip install -r requirements.txt
     ```
-7. Create R Profile
+8. Create R Profile
   - Clone this talk's repo (after getting out of the colaboratory directory)
     
     ```
