@@ -67,5 +67,6 @@ Andee Kaplan & Eric Hare
   - Copy resources/profile_R to ~/.ipython/profile_R/
     
     ```
+    mkdir ~/.ipython
     cp -rf presentations/isu-graphics/data_with_friends/resources/profile_R ~/.ipython/profile_R
     ```
