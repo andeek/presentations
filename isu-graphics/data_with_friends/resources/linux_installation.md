@@ -39,7 +39,6 @@ Andee Kaplan & Eric Hare
     ```r
     #if not already installed
     install.packages("devtools")
-    install.packages('RCurl') 
     
     library(devtools)
     install_github('armstrtw/rzmq#8')
