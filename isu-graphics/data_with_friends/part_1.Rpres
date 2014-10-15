@@ -10,7 +10,7 @@ Real-time data analysis together
 
 **What**: ISU Graphics group will host a 1 hour data-a-thon in which we will all analyze a dataset together.
 
-**When**: Oct. 29th at 1:10pm
+**When**: Nov. 5th at 1:10pm
 
 **Where**: In Snedecor 2113 (remote participants also encouraged to participate)
 
