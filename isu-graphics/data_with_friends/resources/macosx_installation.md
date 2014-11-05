@@ -51,7 +51,7 @@ Andee Kaplan & Eric Hare
     install.packages("devtools")
     
     library(devtools)
-    install_github('armstrtw/rzmq#8')
+    install_github('armstrtw/rzmq')
     install_github("takluyver/IRdisplay")
     install_github("takluyver/IRkernel")
     ```
