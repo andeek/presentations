@@ -14,9 +14,10 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector timesTwo(NumericVector x) {
   int i;
-  NumericVector res(x.length());
+  int n = x.length();
+  NumericVector res(n);
   
-  for(i = 0; i < x.length(); ++i) {
+  for(i = 0; i < n; ++i) {
     res[i] = 2*x[i];  
   }
   

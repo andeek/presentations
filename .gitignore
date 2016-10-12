@@ -12,4 +12,8 @@
 .Rproj.user
 *.Rproj
 
+# tex
+*.nav
+*.snm
+*.bbl
 

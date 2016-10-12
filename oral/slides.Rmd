@@ -1,0 +1,207 @@
+---
+title: "On advancing MCMC-based methods for Markovian data structures with applications to deep learning, simulation, and resampling"
+shorttitle: "MCMC-based methods for Markovian data"
+author: "Andee Kaplan"
+date: "Octover 25, 2016"
+output: 
+  beamer_presentation:
+    template: beamer.tex
+    citation_package: natbib
+    includes:
+      in_header: front-matter.tex
+theme: CambridgeUS
+bibliography: refs.bib
+fig_caption: true
+---
+
+---- 
+
+\begin{center}
+\Huge
+An exposition on the propriety of restricted Boltzmann machines
+\end{center}
+
+# What is this?
+
+A Restricted Boltzman Machine (RBM) is an undirected probabilistic graphical model (for discrete or continuous random variables) with two layers, one hidden and one visible, with conditional independence within a layer [@smolensky1986information].
+
+\begin{figure}
+\includegraphics[width=.6\linewidth]{images/rbm.png}
+\caption{An example RBM, which consists of two layers. Hidden nodes are indicated by white circles and the visible nodes are indicated by blue circles}
+\end{figure}
+
+# How is it used?
+
+Typically used for image classification. Each image pixel is a node in the visible layer. The output creates features, which are passed to a supervised learning algorithm.
+
+\begin{figure}
+\includegraphics[width=\linewidth]{images/visibles_image.png}
+\caption{Image classification using a RBM. On the left, each image pixel comprises a node in the visible layer, $\mathcal{V}$. On the right, the output of the RBM is used to create features which are then passed to a supervised learning algorithm.}
+\end{figure}
+
+# Joint distribution
+Let $\boldsymbol x = {h_1, \dots, h_H, v_1,\dots,v_V}$ represent the states of the visible and hidden nodes in an RBM. We will consider both $\boldsymbol x \in \{0,1\}^{H + V}$ and $\boldsymbol x \in \{-1, 1\}^{H + V}$. 
+
+A parametric form for probabilities corresponding to a potential vector of states of each node taking the value of $1$.
+
+\begin{align} 
+\label{eqn:pmf} 
+f_{\boldsymbol \theta} (\boldsymbol x) = \frac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\gamma(\boldsymbol \theta)} \end{align}
+
+Where 
+
+$$\gamma(\boldsymbol \theta) = \sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)$$.
+
+# Deep learning
+
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+\begin{itemize}
+\item By stacking layers of RBMs in a deep architecture, proponents of the models claim the ability to learn "internal representations that become increasingly complex, which is considered to be a promising way of solving object and speech recognition problems" \cite[pp. 450]{salakhutdinov2009deep}.
+\item Stacking is achieved by treating a hidden layer of one RBM as the visible layer in a second RBM, etc.
+\end{itemize}
+\end{column}
+\hfill
+\begin{column}{.48\textwidth}
+\begin{figure}
+\includegraphics[width=\linewidth]{images/deep_rbm.png}
+\caption{Three layer deep Boltzmann machine, with visible-to-hidden and hidden-to-hidden connections but no within-layer connections.}
+\end{figure}
+\end{column}
+\end{columns}
+
+# Why do I care?
+
+- The model properties are largely unexplored in the literature and the commonly cited fitting methodology remains heuristic-based and abstruse. 
+- We want to 
+    1. provide steps toward a thorough understanding of the model and its behavior from the perspective of statistical model theory, and 
+    2. explore the possibility of a rigorous fitting methodology. 
+
+# Degeneracy, instability, and uninterpretability. Oh my!
+
+The highly flexible nature of a RBM (having as it does $H + V + H V$ parameters) makes three kinds of potential model impropriety of concern, *degeneracy*, *instability*, and *uninterpretability*.
+
+> A model should "provide an explanation of the mechanism underlying the observed phenomena" [@lehmann1990model, @box1967discrimination]. 
+
+RBMs often fail to generate data that resemble realistic data and thus an unsatisfactory conceptualization of the data generation process. Additionally, we find that RBMs easily exhibit a kind of instability in the parameter space. In practice, this is seen when a single pixel change in an image results in a wildly different classification. Such model impropriety issues have been documented in other deep architectures recently [@szegedy2013intriguing, @nguyen2014deep].
+
+# Near-degeneracy
+
+\begin{definition}[Model Degeneracy]
+There is a disproportionate amount of probability placed on only a few elements of the sample space, $\mathcal{X}$, by the model.
+\end{definition}
+
+The RBM class of models exhibits *near-degeneracy* when random variables in the neg-potential function 
+$$Q(\boldsymbol x) = \sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j,
+$$ 
+have a mean vector $\mu(\boldsymbol \theta)$ close to the boundary of the convex hull of $\mathcal{T}$ [@handcock2003assessing], where $t(\boldsymbol x) = \{v_1, \dots, v_V, h_1, \dots, h_H, v_1 h_1, \dots, v_V h_H \} \in \mathcal{T}$ and the mean parameterization on the model parameters, $\mu(\boldsymbol \theta)$ is
+
+---
+
+\begin{align*}
+\mu(\boldsymbol \theta) &= \text{E}_{\boldsymbol \theta} t(\boldsymbol X)  \\
+&= \sum\limits_{x \in \mathcal{X}} \left\{ t(\boldsymbol x) f_{\boldsymbol \theta} (\boldsymbol x) \right\} \\
+&= \sum\limits_{x \in \mathcal{X}} \left\{ t(\boldsymbol x)\dfrac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}\right\}. \\
+\end{align*}
+
+# Instability
+
+\begin{definition}[Instability]
+Characterized by excessive sensitivity in the model, where small changes in the components of potential data outcomes, $\boldsymbol x$, may lead to substantial changes in the probability mass function.
+\end{definition}
+
+@schweinberger2011instability introduced a concept of model defficiency related to *instability* considering only a class of exponential families of distributions.
+
+To quantify *instability* in the RBM, it is useful to imagine how a data model might be expanded to incorporate more and more observations. To increase the size of a RBM model to handle more "visible variables", it becomes necessary to expand the number of model parameters (and in the process of increasing the model size in visibles, one may also arbitrarily expand the number of hidden variables to be included).
+
+# Unstable RBMs
+
+\begin{definition}[Unstable RBM]
+A RBM model formulation is \emph{unstable} if, as the number of visible variables increase ($V \rightarrow \infty$), it holds that 
+\begin{align*}
+\lim\limits_{V \rightarrow \infty} \frac{1}{V} ELPR_V(\boldsymbol \theta) = \infty.
+\end{align*}
+where 
+\begin{align}
+\label{eqn:elpr}
+ELPR_V(\boldsymbol \theta) = \log \left[\frac{\max\limits_{(v_1, \dots, v_V) \in \{-1,1\}^V}P_{\boldsymbol \theta}(v_1, \dots, v_V)}{\min\limits_{(v_1, \dots, v_V) \in \{-1,1\}^V}P_{\boldsymbol \theta}(v_1, \dots, v_V)}\right]
+\end{align}
+\end{definition}
+
+Unstable RBM models are undesirable for several reasons. One is that, as mentioned above, small changes in data can lead to overly-sensitive changes in probability. 
+
+# One-pixel change
+
+Consider, for example, the biggest log-probability ratio for a one-pixel (one component) change in data outcomes (visibles). 
+
+$$
+\Delta_V(\boldsymbol \theta) \equiv \max \left\{\log \frac{P_{\boldsymbol \theta}(v_1, \dots, v_V)}{P_{\boldsymbol \theta}(v_1^*, \dots, v_V^*)} \right\},
+$$
+
+where $(v_1, \dots, v_V) \& (v_1^*, \dots, v_V^*) \in \{-1,1\}^V$ differ by exactly one component
+
+
+\begin{result}
+\label{prop:instab}
+If $\frac{1}{V}\text{ELPR}_V(\boldsymbol \theta) > C$, then $\Delta_V(\boldsymbol \theta) > C$.
+\end{result}
+
+In other words, if the quantity (\ref{eqn:elpr}) is too large, then the RBM model will exhibit large probability shifts for very small changes in the data configuration (i.e. instability mentioned earlier).
+
+# Tie to degeneracy
+
+Unstable RBM models are connected to degenerate models (placing all probability on a small pieace of the sample space). Define a model set 
+\begin{align*}
+M_{\epsilon, \boldsymbol \theta} &\equiv \left\{\boldsymbol v \in \{-1,1\}^V: \log P_{\boldsymbol \theta}(\boldsymbol v)  > (1-\epsilon)\max\limits_{\boldsymbol v^*}P_{\boldsymbol \theta}(\boldsymbol v^*) + \epsilon\min\limits_{\boldsymbol v^*}P_{\boldsymbol \theta}(\boldsymbol v^*) \right\}
+\end{align*}
+
+of possible outcomes, for a given $0 < \epsilon < 1$.
+
+\begin{result}
+\label{prop:degen}
+For an unstable RBM model, and for any given $0 < \epsilon < 1$, $P_{\boldsymbol \theta}\left((v_1, \dots, v_V) \in M_{\epsilon, \boldsymbol \theta}\right) \rightarrow 1$ holds as $V \rightarrow \infty$.
+\end{result}
+
+In other words, as a consequence of unstable models, all probability will stack up on mode sets or potentially those few outcomes with the highest probability. Proofs of results \ref{prop:instab}-\ref{prop:degen} are provided in the appendix.
+
+
+# Uninterpretability
+
+\begin{definition}[Uninterpretability]
+
+\end{definition}
+
+
+
+# Data coding to mitigate degeneracy
+
+# Manageable (a.k.a. small) examples
+
+# Model fitting
+
+# Bayesian methods
+
+# Posterior distributions of images
+
+# Wrapping up
+
+- While RBMs can be useful for classification, in the context of a statistical model as a representation of data, RBMs are a poor fit due to
+    1. *near-degeneracy*, 
+    2. *instability*, and
+    3. *uninterpretability*.
+- Rigorous fitting methodology is possible but slow and as the size of the model grows, becomes intractible.
+- There is no "smoothing" achieved with a RBM fit using a rigorous method, because any fully principled fitting method will reproduce the empirical distribution of most realistic training sets
+
+---- 
+\begin{center}
+\Huge
+Concliques $+$ Gibbs $= \text{ Cool}^3$
+\end{center}
+
+---- 
+\begin{center}
+\Huge
+Future work
+\end{center}
+
+# References
