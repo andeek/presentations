@@ -164,14 +164,47 @@ For an unstable RBM model, and for any given $0 < \epsilon < 1$, $P_{\boldsymbol
 
 In other words, as a consequence of unstable models, all probability will stack up on mode sets or potentially those few outcomes with the highest probability. Proofs of results \ref{prop:instab}-\ref{prop:degen} are provided in the appendix.
 
+# Computationally tractable lower bound
+
+To numerically investigate unstable RBM models, it is useful to define a computationally tractable lower bound on (\ref{eqn:elpr}) given by
+$$
+\frac{1}{V}R(\boldsymbol \theta) \text{ for } R(\boldsymbol \theta) \equiv \max_{\boldsymbol v} \max_{\boldsymbol h}Q(\boldsymbol x) - \min_{\boldsymbol v}\max_{\boldsymbol h}Q(\boldsymbol x) - H\log 2.
+$$
+That is, it holds that, in (\ref{eqn:elpr}),
+\begin{align}
+\frac{1}{V} \text{ELPR}_V(\boldsymbol \theta) \ge \frac{1}{V}R(\boldsymbol \theta). \label{eqn:lowerbnd}
+\end{align}
+(A proof of (\ref{eqn:lowerbnd}) appears in the appendix.)
 
 # Uninterpretability
 
 \begin{definition}[Uninterpretability]
-
+Characterized by marginal mean-structure not being maintained in the model due to dependence \cite{kaiser2007statistical}.
 \end{definition}
 
+A measure of this is the magnitude of the difference between model expectations, E$\left[\boldsymbol X | \boldsymbol \theta\right]$, and expectations given independence, E$\left[\boldsymbol X | \boldsymbol \theta^* \right]$, where $\boldsymbol \theta^*$ is defined to equal $\boldsymbol \theta$ with all $\theta_{ij} = 0$ for $i = 1, \dots, V, j = 1, \dots, H$. 
 
+Using this concept it is possible to investigate what conditions lead to uninterpretability in a model versus those that guarantee interpretable models. A model is considered without uninterpretability if its expected value is not very different from the same model with assumed independence. 
+
+# RBM quantities to compare
+
+\begin{align*}
+\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] &= \sum\limits_{\boldsymbol x \in \mathcal{X}} \boldsymbol x f_{\boldsymbol \theta}(\boldsymbol x) \\
+&= \sum\limits_{\boldsymbol x \in \mathcal{X}} \boldsymbol x \frac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)} \\
+&= \frac{\sum\limits_{\boldsymbol x \in \mathcal{X}} x_k \exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}
+\end{align*}
+for $k = 1, \dots, H + V$.
+
+# RBM quantities to compare
+
+\begin{align*}
+\text{E}\left[\boldsymbol X | \boldsymbol 
+\theta^*\right] &= \sum\limits_{\boldsymbol x \in \mathcal{X}} \boldsymbol x \frac{\exp\left(\sum\limits_{i = 1}^V \theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)} \\
+&= \frac{\sum\limits_{\boldsymbol x \in \mathcal{X}} x_k \exp\left(\sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}
+\end{align*}
+for $k = 1, \dots, H + V$.
+
+If $|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\boldsymbol X | \boldsymbol \theta^*\right]|$ is large then the RBM with parameter vector $\boldsymbol \theta$ $is *uninterpetable*.
 
 # Data coding to mitigate degeneracy
 
