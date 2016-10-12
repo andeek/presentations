@@ -204,7 +204,7 @@ for $k = 1, \dots, H + V$.
 \end{align*}
 for $k = 1, \dots, H + V$.
 
-If $|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\boldsymbol X | \boldsymbol \theta^*\right]|$ is large then the RBM with parameter vector $\boldsymbol \theta$ $is *uninterpetable*.
+If $|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\boldsymbol X | \boldsymbol \theta^*\right]|$ is large then the RBM with parameter vector $\boldsymbol \theta$ is *uninterpetable*.
 
 # Data coding to mitigate degeneracy
 
