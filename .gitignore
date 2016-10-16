@@ -16,6 +16,7 @@
 *.nav
 *.snm
 *.bbl
+*.vrb
 
 oral/slides_cache/*
 oral/slides_files/*

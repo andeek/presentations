@@ -704,6 +704,162 @@ p.models
 Concliques $+$ Gibbs $= \text{ Cool}^3$
 \end{center}
 
+# Goal
+
+- Markov random field models are common for spatial data
+- Rather than specifying a joint distribution directly, a  model is specified through a set of full conditional distributions for each spatial location
+- Assume the spatial data are on a regular lattice (wrapped on a torus)
+
+**Goal:** A new, provably fast approach for simulating spatial data.
+
+# Spatial Markov random field (MRF) models
+
+\begin{block}{Notation}
+\begin{itemize}
+\item Variables  $\{ Y(\mbs_i): i=1, \dots, n \}$ at locations $\{ \mbs_i: i=1, \dots, n\}$
+\item Neighborhoods: $N_i$ specified according to some configuration
+\item Neighboring Values: $\mby(N_i) = \{ y(\mbs_j) : \mbs_j \in N_i \}$
+\item Full Conditionals: $\{ f_i(y(\mbs_i)|\mby(N_i), \mbtheta): i=1, \dots, n \}$
+\begin{itemize}
+    \item $f_i(y(\mbs_i)|\mby(N_i), \mbtheta)$ is conditional pmf/pdf of $Y(\mbs_i)$ given values for its
+ neighbors  $\mby(N_i)$
+    \item Often assume a common conditional cdf $F_i=F$ form ($f_i=f$) for all $i$
+\end{itemize}
+\end{itemize}
+\end{block}
+
+# Exponential family examples
+
+1. Conditional Gaussian (3 parameters):  
+    $$
+      f_i(y(\mbs_i)|\mby(N_i),\alpha,\eta,\tau) = \frac{1}{\sqrt{2 \pi} \tau}\exp\left( -\frac{[y(\mbs_i) - \mu(\mbs_i) ]^2}{2 \tau^2}\right)
+    $$
+    $Y(\mbs_i)$ given neighbors $\mby(N_i)$ is normal with variance $\tau^2$ and mean
+    $$
+    \mu(\mbs_i) = \alpha + \eta \sum_{\mbs_j \in N_i}[y(\mbs_j)-\alpha]
+    $$
+2. Conditional Binary (2 parameters):  
+    $Y(\mbs_i)$ given neighbors $\mby(N_i)$ is Bernoulli $p(\mbs_i,\kappa,\eta)$ where
+    $$
+    \mathrm{logit}[p(\mbs_i,\kappa,\eta)] = \mathrm{logit}( \kappa ) +\eta \sum_{\mbs_j \in N_i}[y(\mbs_j)-\kappa]
+    $$
+
+In both examples, $\eta$ represents a dependence parameter.
+
+# Concliques
+
+\begin{block}{Cliques -- \cite{hammersley1971markov}}
+Singletons and sets of locations such that each location in the set is a neighbor of all other locations in the set \\
+Example: Four nearest neighbors gives cliques of sizes $1$ and $2$
+\end{block}
+
+\begin{block}{The Converse of Cliques -- Concliques}
+Sets of locations such that no location in the set is a neighbor of any other location in the set
+
+\vspace{-.5cm}
+
+\footnotesize
+\begin{columns}
+\hspace*{-.8cm}
+\begin{column}{0.1\textwidth}
+\begin{center}
+\vspace*{-.9cm}
+\underline{4 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{ccc}
+\cdot&*&\cdot \\
+*&\mbs&* \\
+\cdot&*&\cdot \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\begin{column}{0.1\textwidth}
+\begin{center}
+ \underline{Concliques}\\ \underline{4 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{cccc}
+1&2&1&2 \\
+2&1&2&1 \\
+1&2&1&2 \\
+2&1&2&1 \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\begin{column}{0.1\textwidth}
+\begin{center}
+\vspace*{-.9cm}
+\underline{8 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{ccc}
+*&*&* \\
+*&\mbs&* \\
+*&*&* \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\begin{column}{0.1\textwidth}
+\begin{center}
+
+\vspace*{-.2cm}
+ \underline{Concliques}\\ \underline{8 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{cccc}
+1&2&1&2 \\
+3&4&3&4 \\
+1&2&1&2 \\
+3&4&3&4 \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\end{columns}
+\end{block}
+
+# Generalized spatial residuals
+
+\begin{block}{Definition}
+\begin{itemize}
+%\item Let ${\cal R}$ be a spatial lattice on which variables are defined (may be irregular in shape)
+\item   $F(y|\mby(N_i), \mbtheta)$ is the conditional cdf of $Y(\mbs_i)$ under the model
+\item Substitute random variables, $Y(\mbs_i)$ and neighbors $\{Y(\mbs_j): \mbs_j \in N_i \}$, into  (continuous) conditional cdf  to define residuals:
+\begin{displaymath}
+R(\mbs_i) = F(Y(\mbs_i)|\{Y(\mbs_j): \mbs_j \in N_i \}, \mbtheta).
+\end{displaymath}
+\end{itemize}
+\end{block}
+
+\begin{block}{Key Property}
+Let $\{ {\cal C}_j: \, j=1, \ldots, q \}$ be a collection of concliques that partition the integer grid. Under the conditional model, \textbf{spatial residuals {\it within} a conclique are iid  Uniform$(0, 1)$-distributed}: \\
+\begin{displaymath}
+\{ R(\mbs_i): \, \mbs_i \in {\cal C}_j \} \stackrel{iid}{\sim} \mbox{ Uniform}(0, 1) \qquad \text{ for } j=1, \dots, q
+\end{displaymath}
+\end{block}
+
+[@kaiser2012goodness]
+
+# Conclique-based Gibbs sampler
+
+Using the conditional independence of random variables at locations within a conclique along with the probability integral transform we propose a conclique-based Gibbs sampling algorithm for sampling from a MRF.
+
+1. Split locations into $Q$ disjoint concliques, $\mathcal{D} = \cup_{i = 1}^Q\mathcal{C}_i$.
+1. Initialize the values of $\{Y^{(0)}(\boldsymbol s): \boldsymbol s \in \{\mathcal{C}_2, \dots, \mathcal{C}_Q\}\}$.
+1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_1$, 
+    a. Sample $\{U(s): s \in \mathcal{C}_1\} \stackrel{iid}{\sim} Unif(0,1)$
+    b. For each $\boldsymbol s \in \mathcal{C}_1$, $Y^{(i)}(\boldsymbol s) = F^{-1}(U(\boldsymbol s)|Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s))$
+1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_j; j =2, \dots, Q$, 
+    a. Sample $\{U(s): s \in \mathcal{C}_2\} \stackrel{iid}{\sim} Unif(0,1)$
+    b. For each $\boldsymbol s \in \mathcal{C}_j$, $Y^{(i)}(\boldsymbol s) = F^{-1}(U(\boldsymbol s)|\{Y^{(i)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k < j\}, \{Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k > j\})$
+
+# It's (provably) fast!
+
+1. In many (commonly used) four-nearest neighbor models (including Gaussian and binary), the conclique-based Gibbs sampler is **geometrically ergodic**.
+1. Because we are using batch updating vs. sequential updating of each location, this approach is also **computationally fast**.
+1. This approach is implemented in a flexible `R` package (called `conclique`, to appear on CRAN) that implements a conclique-based Gibbs sampler while allowing the user to specify an arbitrary model.
+
+
 ---- 
 \begin{center}
 \Huge
