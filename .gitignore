@@ -17,3 +17,8 @@
 *.snm
 *.bbl
 
+oral/slides_cache/*
+oral/slides_files/*
+
+oral/data/*.Rdata
+
