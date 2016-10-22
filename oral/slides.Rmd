@@ -881,6 +881,12 @@ We prove the contrapositive. Suppose that $\Delta(\boldsymbol \theta_V) \le C$ h
 \end{align*}
 using $k \le V$ and $\Delta(\boldsymbol \theta_V) \le C$.$\Box$
 
+---- 
+\begin{center}
+\Huge
+Appendices
+\end{center}
+
 # Appendix: Proof of Result \ref{prop:degen}
 
 \scriptsize 
