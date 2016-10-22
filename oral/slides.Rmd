@@ -30,7 +30,7 @@ source("helpers/functions.R")
 
 \begin{center}
 \Huge
-An exposition on the propriety of restricted Boltzmann machines
+On the propriety of restricted Boltzmann machines
 \end{center}
 
 # What is this?
