@@ -52,9 +52,7 @@ Typically used for image classification. Each image pixel is a node in the visib
 \end{figure}
 
 # Joint distribution
-Let $\boldsymbol x = (h_1, \dots, h_H, v_1,\dots,v_V)$ represent the states of the visible and hidden nodes in an RBM. We will consider both $\boldsymbol x \in \{0,1\}^{H + V}$ and $\boldsymbol x \in \{-1, 1\}^{H + V}$. 
-
-A parametric form for probabilities corresponding to a potential vector of states of each node
+Let $\boldsymbol x = (h_1, \dots, h_H, v_1,\dots,v_V)$ represent the states of the visible and hidden nodes in an RBM. Each single "binary" random variable, visible or hidden, will take its values in a common coding set $\mathcal{C}$, with two possibilities for the coding set $\mathcal{C}=\{0,1\}$ or $\mathcal{C}=\{-1,1\}$. A parametric form for probabilities corresponding to a potential vector of states of each node
 
 \begin{align} 
 \label{eqn:pmf} 
@@ -62,7 +60,7 @@ f_{\boldsymbol \theta} (\boldsymbol x) = \frac{\exp\left(\sum\limits_{i = 1}^V \
 
 where 
 
-$$\gamma(\boldsymbol \theta) = \sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)$$.
+$$\gamma(\boldsymbol \theta) = \sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)$$.
 
 # Deep learning
 
@@ -91,16 +89,16 @@ $$\gamma(\boldsymbol \theta) = \sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\l
 
 # Degeneracy, instability, and uninterpretability. Oh my!
 
-The highly flexible nature of a RBM (having as it does $H + V + H V$ parameters) makes three kinds of potential model impropriety of concern, *degeneracy*, *instability*, and *uninterpretability*.
+The highly flexible nature of a RBM (having as it does $H + V + H V$ parameters) makes at least three kinds of potential model impropriety of concern, *degeneracy*, *instability*, and *uninterpretability*.
 
 > A model should "provide an explanation of the mechanism underlying the observed phenomena" (@lehmann1990model, @box1967discrimination). 
 
-RBMs often fail to generate data with realistic variability and thus an unsatisfactory conceptualization of the data generation process. Additionally, we find that RBMs easily exhibit instability in the parameter space. In practice, this is seen when a single pixel change in an image results in a wildly different classification. Such model impropriety issues have been documented in other deep architectures recently (@szegedy2013intriguing, @nguyen2014deep).
+RBMs often fail to generate data with realistic variability and thus an unsatisfactory conceptualization of the data generation process. Additionally, we find that RBMs easily exhibit instability in the parameter space. In practice, this is seen when a single pixel change in an image results in a wildly different classification. Such model impropriety issues have been documented in in RBMs (@li2014biclustering), as well as other deep architectures (@szegedy2013intriguing, @nguyen2014deep).
 
 # Near-degeneracy
 
 \begin{definition}[Model Degeneracy]
-There is a disproportionate amount of probability placed on only a few elements of the sample space, $\mathcal{X} = \{-1,1\}^{H + V}$, by the model.
+There is a disproportionate amount of probability placed on only a few elements of the sample space, $\mathcal{C}^{H + V}$, by the model.
 \end{definition}
 
 RBM models exhibit *near-degeneracy* when random variables in the neg-potential function 
@@ -112,8 +110,8 @@ have a mean vector $\mu(\boldsymbol \theta)$ close to the boundary of the convex
 
 \begin{align*}
 \mu(\boldsymbol \theta) &= \text{E}_{\boldsymbol \theta} t(\boldsymbol X)  \\
-&= \sum\limits_{x \in \mathcal{X}} \left\{ t(\boldsymbol x) f_{\boldsymbol \theta} (\boldsymbol x) \right\} \\
-&= \sum\limits_{x \in \mathcal{X}} \left\{ t(\boldsymbol x)\dfrac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}\right\}. \\
+&= \sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}} \left\{ t(\boldsymbol x) f_{\boldsymbol \theta} (\boldsymbol x) \right\} \\
+&= \sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}} \left\{ t(\boldsymbol x)\dfrac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}\right\}. \\
 \end{align*}
 
 # Instability
@@ -124,23 +122,23 @@ Characterized by excessive sensitivity in the model, where small changes in the 
 
 @schweinberger2011instability introduced a concept of model defficiency related to *instability* considering only a class of exponential families of distributions.
 
-To quantify *instability* in the RBM, it is useful to imagine how a data model might be expanded to incorporate more observations, or "visible variables". For this, it becomes necessary to expand the number of model parameters in a sequence $\boldsymbol \theta_V \in \mathbb{R}^{V + H + V*H}, V \ge 1$ (one may also arbitrarily expand the number of hidden variables to be included).
+To quantify *instability* in the RBM, it is useful to consider how a data model might be expanded to incorporate more visibles. For this, it becomes necessary to grow the number of model parameters in a sequence $\boldsymbol \theta_V \in \mathbb{R}^{V + H + V*H}, V \ge 1$ (one may also arbitrarily expand the number of hidden variables used).
 
 # Unstable RBMs
 
 \begin{definition}[S-unstable RBM]
-A RBM model formulation is \emph{S-unstable} if, as the number of visible variables increase ($V \rightarrow \infty$), it holds that 
+A RBM model formulation is \emph{S-unstable} if
 \begin{align*}
 \lim\limits_{V \rightarrow \infty} \frac{1}{V} ELPR(\boldsymbol \theta_V) = \infty.
 \end{align*}
 where 
 \begin{align}
 \label{eqn:elpr}
-ELPR(\boldsymbol \theta_V) = \log \left[\frac{\max\limits_{(v_1, \dots, v_V) \in \{-1,1\}^V}P_{\boldsymbol \theta_V}(v_1, \dots, v_V)}{\min\limits_{(v_1, \dots, v_V) \in \{-1,1\}^V}P_{\boldsymbol \theta_V}(v_1, \dots, v_V)}\right]
+ELPR(\boldsymbol \theta_V) = \log \left[\frac{\max\limits_{(v_1, \dots, v_V) \in \mathcal{C}^V}P_{\boldsymbol \theta_V}(v_1, \dots, v_V)}{\min\limits_{(v_1, \dots, v_V) \in \mathcal{C}^V}P_{\boldsymbol \theta_V}(v_1, \dots, v_V)}\right]
 \end{align}
 \end{definition}
 
-S-unstable RBM models are undesirable for several reasons. Again, one is that small changes in data can lead to overly-sensitive changes in probability. 
+S-unstable RBM model sequences are undesirable for several reasons. Again, one is that small changes in data can lead to overly-sensitive changes in probability. 
 
 # One-pixel change
 
@@ -150,35 +148,38 @@ $$
 \Delta(\boldsymbol \theta_V) \equiv \max \left\{\log \frac{P_{\boldsymbol \theta_V}(v_1, \dots, v_V)}{P_{\boldsymbol \theta_V}(v_1^*, \dots, v_V^*)} \right\},
 $$
 
-where $(v_1, \dots, v_V) \& (v_1^*, \dots, v_V^*) \in \{-1,1\}^V$ differ by exactly one component
+where $(v_1, \dots, v_V) \& (v_1^*, \dots, v_V^*) \in \mathcal{C}^V$ differ by exactly one component
 
 
 \begin{result}
 \label{prop:instab}
-If $\frac{1}{V}\text{ELPR}(\boldsymbol \theta_V) > C$, then $\Delta(\boldsymbol \theta_V) > C$.
+Let $C > 0$ and $V \ge 1$. If $\frac{1}{V}\text{ELPR}(\boldsymbol \theta_V) > C$, then $\Delta(\boldsymbol \theta_V) > C$.
 \end{result}
 
-If the quantity (\ref{eqn:elpr}) is too large, then the RBM model will exhibit large probability shifts for very small changes in the data configuration.
+If the quantity (\ref{eqn:elpr}) is too large, then a RBM model sequence will exhibit large probability shifts for very small changes in the data configuration.
 
 # Tie to degeneracy
 
-Unstable RBM models are connected to degenerate models (placing all probability on a small pieace of the sample space). Define a modal set 
+Unstable RBM model sequences are connected to degenerate model sequences (placing all probability on a small portion of their sample spaces). Define a modal set 
+
+\small
 \begin{align*}
-M_{\epsilon, \boldsymbol \theta_V} &\equiv \left\{\boldsymbol v \in \{-1,1\}^V: \log P_{\boldsymbol \theta_V}(\boldsymbol v)  > (1-\epsilon)\max\limits_{\boldsymbol v^*}P_{\boldsymbol \theta_V}(\boldsymbol v^*) + \epsilon\min\limits_{\boldsymbol v^*}P_{\boldsymbol \theta_V}(\boldsymbol v^*) \right\}
+M_{\epsilon, \boldsymbol \theta_V} &\equiv \left\{\boldsymbol v \in \mathcal{C}^V: \log P_{\boldsymbol \theta_V}(\boldsymbol v)  > (1-\epsilon)\max\limits_{\boldsymbol v^*}P_{\boldsymbol \theta_V}(\boldsymbol v^*) + \epsilon\min\limits_{\boldsymbol v^*}P_{\boldsymbol \theta_V}(\boldsymbol v^*) \right\}
 \end{align*}
 
+\normalsize
 of possible outcomes, for a given $0 < \epsilon < 1$.
 
 \begin{result}
 \label{prop:degen}
-For an unstable RBM model, and for any given $0 < \epsilon < 1$, $P_{\boldsymbol \theta_V}\left((v_1, \dots, v_V) \in M_{\epsilon, \boldsymbol \theta_V}\right) \rightarrow 1$ holds as $V \rightarrow \infty$.
+For an S-unstable RBM model, and for any given $0 < \epsilon < 1$, $P_{\boldsymbol \theta_V}\left((v_1, \dots, v_V) \in M_{\epsilon, \boldsymbol \theta_V}\right) \rightarrow 1$ holds as $V \rightarrow \infty$.
 \end{result}
 
 As a consequence of unstable models, all probability will stack up on mode sets or potentially those few outcomes with the highest probability. Proofs of results \ref{prop:instab}-\ref{prop:degen} are provided later.
 
 # Computationally tractable lower bound
 
-To numerically investigate unstable RBM models, it is useful to define a computationally tractable lower bound on (\ref{eqn:elpr}) given by
+To numerically investigate unstable RBM model sequences, it is useful to define a computationally tractable lower bound on (\ref{eqn:elpr}) given by
 $$
 \frac{1}{V}R(\boldsymbol \theta) \text{ for } R(\boldsymbol \theta) \equiv \max_{\boldsymbol v} \max_{\boldsymbol h}Q_{\boldsymbol \theta}(\boldsymbol x) - \min_{\boldsymbol v}\max_{\boldsymbol h}Q_{\boldsymbol \theta}(\boldsymbol x) - H\log 2.
 $$
@@ -203,11 +204,10 @@ If $|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\bo
 # RBM quantities to compare
 
 \begin{align*}
-\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] &= \sum\limits_{\boldsymbol x \in \mathcal{X}} \boldsymbol x f_{\boldsymbol \theta}(\boldsymbol x) \\
-&= \sum\limits_{\boldsymbol x \in \mathcal{X}} \boldsymbol x \frac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)} \\
+\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] &= \sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}} \boldsymbol x f_{\boldsymbol \theta}(\boldsymbol x) \\
+&= \sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}} \boldsymbol x \frac{\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}}\exp\left(\sum\limits_{i = 1}^V \sum\limits_{j=1}^H \theta_{ij} v_i h_j + \sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)} \\
 ~\\
-\text{E}\left[\boldsymbol X | \boldsymbol 
-\theta^*\right] &= \sum\limits_{\boldsymbol x \in \mathcal{X}} \boldsymbol x \frac{\exp\left(\sum\limits_{i = 1}^V \theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{X}}\exp\left(\sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)} 
+\text{E}\left[\boldsymbol X | \boldsymbol \theta^*\right] &= \sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}} \boldsymbol x \frac{\exp\left(\sum\limits_{i = 1}^V \theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)}{\sum\limits_{\boldsymbol x \in \mathcal{C}^{H + V}}\exp\left(\sum\limits_{i = 1}^V\theta_{v_i} v_i + \sum\limits_{j = 1}^H\theta_{h_j} h_j\right)} 
 \end{align*}
 
 # Data coding to mitigate degeneracy
@@ -220,7 +220,7 @@ If $|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\bo
 
 # The center of the universe
 
-- For the $\{-1, 1 \}$ encoding of $\mathcal{V}$ and $\mathcal{H}$, the origin is the center of the parameter space
+- For the $\mathcal{C} = \{-1, 1 \}$ encoding of $\mathcal{V}$ and $\mathcal{H}$, the origin is the center of the parameter space
 - At $\theta = 0$, RBM is equivalent to elements of $X$ being distributed as iid Bernoulli$\left(\frac{1}{2}\right)$ $\Rightarrow$ No *near-degeneracy*, *instability*, or *uninterpretability*!
 
 
@@ -870,10 +870,16 @@ Future work
     - These blocks are then sampled with replacement and sewn together to re-create a total network by using iid Bernoulli draws (with an appropriate probability of success).
     - This method does not impose a neighborhood structure, nor particular distributional assumptions.
 
+---- 
+\begin{center}
+\Huge
+Appendices
+\end{center}
+
 # Appendix: Proof of Result \ref{prop:instab}
 \scriptsize
 
-We prove the contrapositive. Suppose that $\Delta(\boldsymbol \theta_V) \le C$ holds for some $C > 0$. Under the RBM model for visibles, $P_{\boldsymbol \theta_V}(\boldsymbol v) > 0$ holds for each outcome $\boldsymbol v \in \{-1,1\}^V$. Let $\boldsymbol v_{min} \equiv \argmin\limits_{\boldsymbol v \in \{-1, 1\}^V}P_{\boldsymbol \theta_V}(\boldsymbol v)$ and $\boldsymbol v_{max} \equiv \argmax\limits_{\boldsymbol v \in \{-1, 1\}^V}P_{\boldsymbol \theta_V}(\boldsymbol v)$. Note there exists a sequence $\boldsymbol v_{min} \equiv \boldsymbol v_0, \boldsymbol v_1, \dots, \boldsymbol v_k \equiv \boldsymbol v_{max}$ in $\{-1,1\}^V$ of component-wise switches to move from $\boldsymbol v_{min}$ to $\boldsymbol v_{max}$ in the sample space (i.e. $\boldsymbol v_i, \boldsymbol v_{i + 1} \in \{-1,1\}^V$ differ by exactly $1$ component for $i = 0, \dots, k$) for some integer $k \in \{0, 1, \dots, V\}$. Then
+We prove the contrapositive. Suppose that $\Delta(\boldsymbol \theta_V) \le C$ holds for some $C > 0$. Under the RBM model for visibles, $P_{\boldsymbol \theta_V}(\boldsymbol v) > 0$ holds for each outcome $\boldsymbol v \in \mathcal{C}^V$. Let $\boldsymbol v_{min} \equiv \argmin\limits_{\boldsymbol v \in \mathcal{C}^V}P_{\boldsymbol \theta_V}(\boldsymbol v)$ and $\boldsymbol v_{max} \equiv \argmax\limits_{\boldsymbol v \in \mathcal{C}^V}P_{\boldsymbol \theta_V}(\boldsymbol v)$. Note there exists a sequence $\boldsymbol v_{min} \equiv \boldsymbol v_0, \boldsymbol v_1, \dots, \boldsymbol v_k \equiv \boldsymbol v_{max}$ in $\mathcal{C}^V$ of component-wise switches to move from $\boldsymbol v_{min}$ to $\boldsymbol v_{max}$ in the sample space (i.e. $\boldsymbol v_i, \boldsymbol v_{i + 1} \in \mathcal{C}^V$ differ by exactly $1$ component for $i = 0, \dots, k$) for some integer $k \in \{0, 1, \dots, V\}$. Then
 \begin{align*}
 \log\left[\frac{P_{\boldsymbol \theta_V}(\boldsymbol v_{max})}{P_{\boldsymbol \theta_V}(\boldsymbol v_{min})}\right] &= \left|\sum\limits_{i = 1}^k\log\left(\frac{P_{\boldsymbol \theta_V}(\boldsymbol v_i)}{P_{\boldsymbol \theta_V}(\boldsymbol v_{i-1})}\right)\right| \\
 & \le \sum\limits_{i = 1}^k\left|\log\left(\frac{P_{\boldsymbol \theta_V}(\boldsymbol v_i)}{P_{\boldsymbol \theta_V}(\boldsymbol v_{i-1})}\right)\right| \\
@@ -881,20 +887,14 @@ We prove the contrapositive. Suppose that $\Delta(\boldsymbol \theta_V) \le C$ h
 \end{align*}
 using $k \le V$ and $\Delta(\boldsymbol \theta_V) \le C$.$\Box$
 
----- 
-\begin{center}
-\Huge
-Appendices
-\end{center}
-
 # Appendix: Proof of Result \ref{prop:degen}
 
 \scriptsize 
 
-Define $\boldsymbol v_{max}$ and $\boldsymbol v_{min}$ as in the proof of Proposition \ref{prop:instab}. Fix $0 < \epsilon < 1$ Then, $\boldsymbol v_{max} \in M_{\epsilon, \boldsymbol \theta_V}$, so $P_{\boldsymbol \theta_V}(M_{\epsilon, \boldsymbol \theta}) \ge P_{\boldsymbol \theta_V}(\boldsymbol v_{max})$. If $\boldsymbol v \in \{-1, 1\}^V \setminus M_{\epsilon, \boldsymbol \theta_V}$, then by definition $P_{\boldsymbol \theta_V}(\boldsymbol v) \le [P_{\boldsymbol \theta_V}(\boldsymbol v_{max})]^{1-\epsilon}[P_{\boldsymbol \theta_V}(\boldsymbol v_{min})]^{\epsilon}$ holds so that
+Define $\boldsymbol v_{max}$ and $\boldsymbol v_{min}$ as in the proof of Proposition \ref{prop:instab}. Fix $0 < \epsilon < 1$ Then, $\boldsymbol v_{max} \in M_{\epsilon, \boldsymbol \theta_V}$, so $P_{\boldsymbol \theta_V}(M_{\epsilon, \boldsymbol \theta}) \ge P_{\boldsymbol \theta_V}(\boldsymbol v_{max})$. If $\boldsymbol v \in \mathcal{C}^V \setminus M_{\epsilon, \boldsymbol \theta_V}$, then by definition $P_{\boldsymbol \theta_V}(\boldsymbol v) \le [P_{\boldsymbol \theta_V}(\boldsymbol v_{max})]^{1-\epsilon}[P_{\boldsymbol \theta_V}(\boldsymbol v_{min})]^{\epsilon}$ holds so that
 \begin{align*}
 1-P_{\boldsymbol \theta_V}(M_{\epsilon, \boldsymbol \theta_V}) &= P_{\boldsymbol \theta_V}(M_{\epsilon, \boldsymbol \theta_V}^C) \\
-& = \sum\limits_{\boldsymbol v \in \{-1, 1\}^V \setminus M_{\epsilon, \boldsymbol \theta_V}}P_{\boldsymbol \theta_V}(\boldsymbol v) \\
+& = \sum\limits_{\boldsymbol v \in \mathcal{C}^V \setminus M_{\epsilon, \boldsymbol \theta_V}}P_{\boldsymbol \theta_V}(\boldsymbol v) \\
 & \le (2^V)[P_{\boldsymbol \theta_V}(\boldsymbol v_{max})]^{1-\epsilon}[P_{\boldsymbol \theta_V}(\boldsymbol v_{min})]^{\epsilon}
 \end{align*}
 Then,
@@ -909,12 +909,12 @@ as $V \rightarrow \infty$ by the definition of an unstable RBM model.$\Box$
 \tiny
 
 \begin{align*}
-\log\left[\frac{\max\limits_{\boldsymbol v \in \{-1, 1\}^V}P_{\boldsymbol \theta}(\boldsymbol v)}{\min\limits_{\boldsymbol v \in \{-1, 1\}^V}P_{\boldsymbol \theta}(\boldsymbol v}) \right]  &= \log\left[\frac{\max\limits_{\boldsymbol v}\sum\limits_{\boldsymbol h \in \{-1,1\}^H} \exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)}
-{\min\limits_{\boldsymbol v}\sum\limits_{\boldsymbol h \in \{-1,1\}^H} \exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)}\right] \\
-& \ge \log\frac{\max\limits_{\boldsymbol v}\max\limits_{\boldsymbol h \in \{-1,1\}^H}\exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)}
-{\min\limits_{\boldsymbol v}2^H\max\limits_{\boldsymbol h \in \{-1,1\}^H}\exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)} \\
-&  = \max\limits_{\boldsymbol v}\max\limits_{\boldsymbol h \in \{-1,1\}^H}\left\{\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right\} - \\
-&  \qquad \min\limits_{\boldsymbol v}\max\limits_{\boldsymbol h \in \{-1,1\}^H}\left\{\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right\} -H\log2 \\
+\log\left[\frac{\max\limits_{\boldsymbol v \in \mathcal{C}^V}P_{\boldsymbol \theta}(\boldsymbol v)}{\min\limits_{\boldsymbol v \in \mathcal{C}^V}P_{\boldsymbol \theta}(\boldsymbol v}) \right]  &= \log\left[\frac{\max\limits_{\boldsymbol v}\sum\limits_{\boldsymbol h \in \mathcal{C}^H} \exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)}
+{\min\limits_{\boldsymbol v}\sum\limits_{\boldsymbol h \in \mathcal{C}^H} \exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)}\right] \\
+& \ge \log\frac{\max\limits_{\boldsymbol v}\max\limits_{\boldsymbol h \in \mathcal{C}^H}\exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)}
+{\min\limits_{\boldsymbol v}2^H\max\limits_{\boldsymbol h \in \mathcal{C}^H}\exp\left(\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right)} \\
+&  = \max\limits_{\boldsymbol v}\max\limits_{\boldsymbol h \in \mathcal{C}^H}\left\{\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right\} - \\
+&  \qquad \min\limits_{\boldsymbol v}\max\limits_{\boldsymbol h \in \mathcal{C}^H}\left\{\sum\limits_{i = 1}^V \theta_{v_i}v_i + \sum\limits_{j = 1}^H \theta_{h_j}h_j + \sum\limits_{i = 1}^V\sum\limits_{j = 1}^H \theta_{ij}v_i h_j\right\} -H\log2 \\
 &  \equiv R(\boldsymbol \theta)
 \end{align*}
 using above the monotonicity of $\log(\cdot)$ and positivity of $\exp(\cdot)$.
