@@ -221,7 +221,7 @@ If $|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\bo
 # The center of the universe
 
 - For the $\mathcal{C} = \{-1, 1 \}$ encoding of $\mathcal{V}$ and $\mathcal{H}$, the origin is the center of the parameter space
-- At $\theta = 0$, RBM is equivalent to elements of $X$ being distributed as iid Bernoulli$\left(\frac{1}{2}\right)$ $\Rightarrow$ No *near-degeneracy*, *instability*, or *uninterpretability*!
+- At $\boldsymbol \theta = \boldsymbol 0$, RBM is equivalent to elements of $X$ being distributed as iid Bernoulli$\left(\frac{1}{2}\right)$ $\Rightarrow$ No *near-degeneracy*, *instability*, or *uninterpretability*!
 
 
 ```{r encoding-volume, echo = FALSE, fig.height=3, fig.cap="The relationship between volume of the convex hull of $\\mathcal{T}$ and the cube containing it for different configurations of nodes."}
