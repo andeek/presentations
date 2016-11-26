@@ -1,7 +1,10 @@
 ---
 title: "A simple, fast sampler for simulating spatial data and other Markovian data structures + `intRo`"
 shorttitle: "Conclique-based Gibbs + `intRo`"
-author: "Andee Kaplan"
+author: |
+  | Andee Kaplan 
+  | Iowa State University 
+  | ajkaplan@iastate.edu
 date: "November 29, 2016"
 output: 
   beamer_presentation:
