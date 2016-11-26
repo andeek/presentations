@@ -1,0 +1,291 @@
+---
+title: "A simple, fast sampler for simulating spatial data and other Markovian data structures + `intRo`"
+shorttitle: "Conclique-based Gibbs + `intRo`"
+author: "Andee Kaplan"
+date: "November 29, 2016"
+output: 
+  beamer_presentation:
+    template: beamer.tex
+    citation_package: natbib
+    includes:
+      in_header: front-matter.tex
+theme: CambridgeUS
+bibliography: refs.bib
+fig_caption: true
+---
+
+```{r libraries, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+theme_set(theme_bw())
+```
+
+---- 
+\begin{center}
+\Huge
+A simple, fast sampler for simulating spatial data and other Markovian data structures
+\end{center}
+
+# Goal
+
+- Markov random field models are possible for spatial or network data
+- Rather than specifying a joint distribution directly, a  model is specified through a set of full conditional distributions for each spatial location
+- Assume the spatial data are on a regular lattice (wrapped on a torus)
+
+**Goal:** A new, provably fast approach for simulating spatial/network data.
+
+# Spatial Markov random field (MRF) models
+
+\begin{block}{Notation}
+\begin{itemize}
+\item Variables  $\{ Y(\mbs_i): i=1, \dots, n \}$ at locations $\{ \mbs_i: i=1, \dots, n\}$
+\item Neighborhoods: $N_i$ specified according to some configuration
+\item Neighboring Values: $\mby(N_i) = \{ y(\mbs_j) : \mbs_j \in N_i \}$
+\item Full Conditionals: $\{ f_i(y(\mbs_i)|\mby(N_i), \mbtheta): i=1, \dots, n \}$
+\begin{itemize}
+    \item $f_i(y(\mbs_i)|\mby(N_i), \mbtheta)$ is conditional pmf/pdf of $Y(\mbs_i)$ given values for its
+ neighbors  $\mby(N_i)$
+    \item Often assume a common conditional cdf $F_i=F$ form ($f_i=f$) for all $i$
+\end{itemize}
+\end{itemize}
+\end{block}
+
+# Exponential family examples
+
+1. Conditional Gaussian (3 parameters):  
+    $$
+      f_i(y(\mbs_i)|\mby(N_i),\alpha,\eta,\tau) = \frac{1}{\sqrt{2 \pi} \tau}\exp\left( -\frac{[y(\mbs_i) - \mu(\mbs_i) ]^2}{2 \tau^2}\right)
+    $$
+    $Y(\mbs_i)$ given neighbors $\mby(N_i)$ is normal with variance $\tau^2$ and mean
+    $$
+    \mu(\mbs_i) = \alpha + \eta \sum_{\mbs_j \in N_i}[y(\mbs_j)-\alpha]
+    $$
+2. Conditional Binary (2 parameters):  
+    $Y(\mbs_i)$ given neighbors $\mby(N_i)$ is Bernoulli $p(\mbs_i,\kappa,\eta)$ where
+    $$
+    \mathrm{logit}[p(\mbs_i,\kappa,\eta)] = \mathrm{logit}( \kappa ) +\eta \sum_{\mbs_j \in N_i}[y(\mbs_j)-\kappa]
+    $$
+
+In both examples, $\eta$ represents a dependence parameter.
+
+# Concliques
+
+\begin{block}{Cliques -- \cite{hammersley1971markov}}
+Singletons and sets of locations such that each location in the set is a neighbor of all other locations in the set \\
+Example: Four nearest neighbors gives cliques of sizes $1$ and $2$
+\end{block}
+
+\begin{block}{The Converse of Cliques -- Concliques}
+Sets of locations such that no location in the set is a neighbor of any other location in the set
+
+\vspace{-.5cm}
+
+\footnotesize
+\begin{columns}
+\hspace*{-.8cm}
+\begin{column}{0.1\textwidth}
+\begin{center}
+\vspace*{-.9cm}
+\underline{4 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{ccc}
+\cdot&*&\cdot \\
+*&\mbs&* \\
+\cdot&*&\cdot \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\begin{column}{0.1\textwidth}
+\begin{center}
+ \underline{Concliques}\\ \underline{4 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{cccc}
+1&2&1&2 \\
+2&1&2&1 \\
+1&2&1&2 \\
+2&1&2&1 \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\begin{column}{0.1\textwidth}
+\begin{center}
+\vspace*{-.9cm}
+\underline{8 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{ccc}
+*&*&* \\
+*&\mbs&* \\
+*&*&* \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\begin{column}{0.1\textwidth}
+\begin{center}
+
+\vspace*{-.2cm}
+ \underline{Concliques}\\ \underline{8 Nearest}\\ \underline{Neighbors}
+$$
+\begin{array}{cccc}
+1&2&1&2 \\
+3&4&3&4 \\
+1&2&1&2 \\
+3&4&3&4 \\
+\end{array}
+$$
+\end{center}
+\end{column}
+\end{columns}
+\end{block}
+
+# Generalized spatial residuals
+
+\begin{block}{Definition}
+\begin{itemize}
+%\item Let ${\cal R}$ be a spatial lattice on which variables are defined (may be irregular in shape)
+\item   $F(y|\mby(N_i), \mbtheta)$ is the conditional cdf of $Y(\mbs_i)$ under the model
+\item Substitute random variables, $Y(\mbs_i)$ and neighbors $\{Y(\mbs_j): \mbs_j \in N_i \}$, into  (continuous) conditional cdf  to define residuals:
+\begin{displaymath}
+R(\mbs_i) = F(Y(\mbs_i)|\{Y(\mbs_j): \mbs_j \in N_i \}, \mbtheta).
+\end{displaymath}
+\end{itemize}
+\end{block}
+
+\begin{block}{Key Property}
+Let $\{ {\cal C}_j: \, j=1, \ldots, q \}$ be a collection of concliques that partition the integer grid. Under the conditional model, \textbf{spatial residuals {\it within} a conclique are iid  Uniform$(0, 1)$-distributed}: \\
+\begin{displaymath}
+\{ R(\mbs_i): \, \mbs_i \in {\cal C}_j \} \stackrel{iid}{\sim} \mbox{ Uniform}(0, 1) \qquad \text{ for } j=1, \dots, q
+\end{displaymath}
+\end{block}
+
+(\cite{kaiser2012goodness})
+
+# Conclique-based Gibbs sampler
+
+Using the conditional independence of random variables at locations within a conclique along with the probability integral transform we propose a conclique-based Gibbs sampling algorithm for sampling from a MRF.
+
+1. Split locations into $Q$ disjoint concliques, $\mathcal{D} = \cup_{i = 1}^Q\mathcal{C}_i$.
+1. Initialize the values of $\{Y^{(0)}(\boldsymbol s): \boldsymbol s \in \{\mathcal{C}_2, \dots, \mathcal{C}_Q\}\}$.
+1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_1$, 
+    a. Sample $\{U(s): s \in \mathcal{C}_1\} \stackrel{iid}{\sim} Unif(0,1)$
+    b. For each $\boldsymbol s \in \mathcal{C}_1$, $Y^{(i)}(\boldsymbol s) = F^{-1}(U(\boldsymbol s)|Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s))$
+1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_j; j =2, \dots, Q$, 
+    a. Sample $\{U(s): s \in \mathcal{C}_2\} \stackrel{iid}{\sim} Unif(0,1)$
+    b. For each $\boldsymbol s \in \mathcal{C}_j$, $Y^{(i)}(\boldsymbol s) = F^{-1}(U(\boldsymbol s)|\{Y^{(i)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k < j\}, \{Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k > j\})$
+
+# It's (provably) fast!
+
+1. In many (commonly used) four-nearest neighbor models (including Gaussian and binary), the conclique-based Gibbs sampler is provably **geometrically ergodic**.
+1. Because we are using batch updating vs. sequential updating of each location, this approach is also **computationally fast**.
+1. This approach is implemented in a flexible `R` package (called `conclique`, to appear on CRAN) that implements a conclique-based Gibbs sampler while allowing the user to specify an arbitrary model.
+
+# Preliminary simulations
+
+```{r timings, fig.height=4, fig.cap="Comparisons of timing for simulation of 4NN Gaussian Markov Random Field data on a lattice of size $N \\times N$ for various size grids, $N = 10, 20, 30, 50, 100$, using sequential and conclique-based Gibbs samplers."}
+load("data/6_timings.RData")
+
+timings %>%
+  gather(gibbs, time, conclique, sequential) %>%
+  mutate(N = factor(N, labels=paste0("N = ", unique(N)))) %>%
+  ggplot() +
+  geom_boxplot(aes(factor(n.iter), time, colour = gibbs)) +
+  facet_grid(~N) +
+  xlab("# iterations") +
+  ylab("Time (seconds)") +
+  scale_colour_discrete("Gibbs sampler", labels=c("Conclique", "Sequential"))
+```
+
+
+# Ideas and connections
+
+- Goodness-of-fit test for network data
+    - The model-based method of resampling re-frames network into a collection of neighborhoods by using covariate information
+    - Creates concliques on a graph structure.
+    - Use a conditionally specified network distribution to sample network data in a blockwise conclique-based Gibbs sampler. 
+
+
+---- 
+\begin{center}
+\Huge
+\texttt{intRo}: statistical analysis software for teaching
+\end{center}
+
+# Do we really need another statistical software package?
+Short answer: **yes**
+
+ - `R` is great, but requires students to have some knowledge/interest in programming
+ - `JMP`, `Deducer`, `Rcmdr` are powerful, but too big
+      - Licenses and installation
+ - New tools recently released to spark an interest in `R`
+      - `Swirl` and DataCamp teach `R` programming
+      - Project MOSAIC facilitates learning, but assumes knowledge of `R`
+ - Want students to focus on data analysis rather than fight with software
+
+# What is `intRo`?
+ - A simple **web-based** application for performing basic data analysis and statistical routines and accompanying utility package
+ - Built using `R` and `Shiny`
+ - Extensible modular structure
+ - Designed for a first statistics class student
+ - Assists in the learning of statistics rather than acting as a stand-alone deliverer of statistics education
+
+# Easy
+ - Focused on aspects of the user interface (UI) and output that make it easy to pick up without training
+ - Minimal necessary functionality for an introductory statistics course
+ - Organized around specific tasks a student may perform in the process of a data analysis
+
+<img src=images/user_experience.png height="250"></img>
+
+# Exciting
+ - Fun, easy to use (available on the web)
+ - Interactive plots using `ggvis`
+ 
+**Ulterior motive**: get students excited about programming
+
+ - By navigating about the user interface of `intRo`, students are creating a fully-executable `R` script that they can download and run locally
+ - Viewing their script change real-time within the application
+ 
+# Extensible
+ - User interaction with `intRo` is split into bitesize chunks that we call *modules*
+ - Each module is a self contained set of `R` code that is dynamically added to the application at run time
+ - `intRo` can be easily extended by the addition of modules within the frame-work underlying the application
+ - Allows instructors/collaborators to tailor `intRo` to the needs of a particular course
+
+---- 
+\begin{center}
+\Huge
+Take a look http://intro-stats.com
+\end{center}
+
+
+# `intRo` package
+
+Installation: 
+
+```{r eval=FALSE, echo=TRUE}
+devtools::install_github("rstudio/shinyapps") 
+devtools::install_github("gammarama/intRo")`
+```
+    
+Functions:
+
+* `download_intRo` - Downloads a current revision of `intRo` to your machine
+* `run_intRo` - Runs an `intRo` session locally with the specified options
+* `deploy_intRo` - Deploys an instance of `intRo` to ShinyApps.io with the specified options
+
+# Future work - Module creation
+*Modularity* is a key feature of `intRo`, but module creation is currently:
+ 
+ - Undocumented
+ - Entirely manual
+ - Unnecessarily lengthy
+
+**Idea**: Include funcitonality in current R package to automate creation of `intRo` modules
+
+
+# References
