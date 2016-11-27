@@ -1,8 +1,8 @@
 ---
 title: "A simple, fast sampler for simulating spatial data and other Markovian data structures + `intRo`"
 shorttitle: "Conclique-based Gibbs + `intRo`"
-author: |
-  | Andee Kaplan 
+author: Andee Kaplan 
+institute: |
   | Iowa State University 
   | ajkaplan@iastate.edu
 date: "November 29, 2016"
@@ -186,7 +186,7 @@ Using the conditional independence of random variables at locations within a con
 
 1. In many (commonly used) four-nearest neighbor models (including Gaussian and binary), the conclique-based Gibbs sampler is provably **geometrically ergodic**.
 1. Because we are using batch updating vs. sequential updating of each location, this approach is also **computationally fast**.
-1. This approach is implemented in a flexible `R` package (called `conclique`, to appear on CRAN) that implements a conclique-based Gibbs sampler while allowing the user to specify an arbitrary model.
+1. A flexible `R` package using `Rcpp` (called `conclique`, to appear on CRAN) that implements a conclique-based Gibbs sampler while allowing the user to specify an arbitrary model.
 
 # Preliminary simulations
 
@@ -208,10 +208,20 @@ timings %>%
 # Ideas and connections
 
 - Goodness-of-fit test for network data
-    - The model-based method of resampling re-frames network into a collection of neighborhoods by using covariate information
-    - Creates concliques on a graph structure.
-    - Use a conditionally specified network distribution to sample network data in a blockwise conclique-based Gibbs sampler. 
+    - The model-based method of resampling re-frames network into a collection of (Markovian) neighborhoods by using covariate information
+    - Creates concliques on a graph structure
+    - Use a conditionally specified network distribution (@casleton2016local) to sample network data in a blockwise conclique-based Gibbs sampler.
+- Extension for multilayer networks
+    - Layer-level dependence parameter 
+    - Utilization of single layer for neighborhood creation
 
+# Other ideas
+
+- Implementation of existing methods in Rcpp (e.g. `ebLink`, `SMERED`)
+- Block bootstrap of dynamic networks over time
+    - Potential nonparametric method of determining distributional properties of dynamic network statistics
+    - Combine with GOF tests
+- Dual record linkage problem - privacy
 
 ---- 
 \begin{center}
