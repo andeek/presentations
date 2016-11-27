@@ -2,9 +2,7 @@
 title: "A simple, fast sampler for simulating spatial data and other Markovian data structures + `intRo`"
 shorttitle: "Conclique-based Gibbs + `intRo`"
 author: Andee Kaplan 
-institute: |
-  | Iowa State University 
-  | ajkaplan@iastate.edu
+institute: ajkaplan@iastate.edu
 date: "November 29, 2016"
 output: 
   beamer_presentation:
@@ -222,6 +220,7 @@ timings %>%
     - Potential nonparametric method of determining distributional properties of dynamic network statistics
     - Combine with GOF tests
 - Dual record linkage problem - privacy
+    - Explore effect of record linkage on differential privacy property and random differential privacy property
 
 ---- 
 \begin{center}
