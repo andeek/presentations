@@ -167,6 +167,31 @@ Let $\{ {\cal C}_j: \, j=1, \ldots, q \}$ be a collection of concliques that par
 
 (\cite{kaiser2012goodness})
 
+# Common Spatial Simulation Approach
+
+With common conditionally specified models for spatial lattice, standard MCMC simulation approach via Gibbs sampling is:
+
+Starting from some initial $\boldsymbol Y_*^{(j)}\equiv\{Y_*^{(j)}(\boldsymbol s_1),\ldots,Y_*^{(j)}(\boldsymbol s_n)\}$,
+
+
+1. Moving row-wise, for $i=1,\ldots,n$, individually simulate/update \red{$Y_*^{(j+1)}(\mbs_i)$} for each location \red{$\mbs_i$} from conditional cdf $F$ given
+ \[\blue{Y_*^{(j+1)}(\mbs_1),\ldots,   Y_{*}^{(j+1)}(\mbs_{i-1})},  \quad Y_*^{(j)}(\mbs_{i+1}),\ldots,Y_*^{(j)}(\mbs_n)\]
+    \setlength{\unitlength}{.1in}
+    \hspace*{2cm}\begin{picture}(1,5)
+    \multiput(1,1)(2,0){11}{\circle*{.8}}
+    \multiput(1,3)(2,0){6}{\circle*{.8}}
+    \multiput(13,3)(2,0){1}{\red{\circle*{.8}}}
+    \multiput(15,3)(2,0){4}{\blue{\circle*{.8}}}
+    \multiput(1,5)(2,0){11}{\blue{\circle*{.8}}}
+    \thicklines
+    \put(1,5){\blue{\line(1,0){20}}}
+    \put(21,5){\blue{\line(0,-1){2}}}
+    \put(21,3){\blue{\vector(-1,0){7.6}}}
+    \end{picture}
+2.  $n$ individual updates provide 1 full Gibbs iteration.
+3. Repeat 1-2 to obtain  $M$ resampled spatial data sets $\mbY_*^{(j)}$, $j=1,\ldots,M$ (e.g., can burn-in, thin, etc.)
+
+
 # Conclique-based Gibbs sampler
 
 Using the conditional independence of random variables at locations within a conclique along with the probability integral transform we propose a conclique-based Gibbs sampling algorithm for sampling from a MRF.
