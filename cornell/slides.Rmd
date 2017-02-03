@@ -11,8 +11,6 @@ date: |
   | February 10, 2017
   |
   | Slides available at <http://bit.ly/kaplan-cornell>
-  | 
-  | \footnotesize Joint work with D. Nordman and S. Vardeman
 shortdate: "February 10, 2017"
 output: 
   beamer_presentation:
@@ -53,8 +51,11 @@ source("helpers/functions.R")
 
 \begin{center}
 \Huge
-On the propriety of restricted Boltzmann machines
+Model matters with restricted Boltzmann machines \\
+\vspace{1in}
+\footnotesize Joint work with D. Nordman and S. Vardeman
 \end{center}
+
 
 # What is this?
 
@@ -71,6 +72,7 @@ A restricted Boltzman machine (RBM) is an undirected probabilistic graphical mod
 # How is it used?
 
 - Supervised learning, specifically image classification 
+- As a building block for deep learning 
 
 \begin{figure}
 \includegraphics[width=\linewidth]{images/visibles_image.pdf}
@@ -92,23 +94,7 @@ A restricted Boltzman machine (RBM) is an undirected probabilistic graphical mod
     
     $$\gamma(\boldsymbol \theta) = \sum\limits_{\boldsymbol x \in \mathcal{C}^{\nh + \nv}}\exp\left(\sum\limits_{i = 1}^{\nv} \sum\limits_{j=1}^{\nh} \theta_{ij} v_i h_j + \sum\limits_{i = 1}^{\nv}\theta_{v_i} v_i + \sum\limits_{j = 1}^{\nh}\theta_{h_j} h_j\right)$$
 
-# Deep learning
 
-\begin{columns}[T] % align columns
-\begin{column}{.48\textwidth}
-\begin{itemize}
-\item Stacking layers of RBMs in a deep architecture
-\item Proponents claim the ability to learn "internal representations that become increasingly complex, which is considered to be a promising way of solving object and speech recognition problems" (Salakhutdinov and Hinton 2009, pp. 450).
-\end{itemize}
-\end{column}
-\hfill
-\begin{column}{.48\textwidth}
-\begin{figure}
-\includegraphics[width=\linewidth]{images/deep_rbm.png}
-\caption{Three layer deep Boltzmann machine, with visible-to-hidden and hidden-to-hidden connections but no within-layer connections.}
-\end{figure}
-\end{column}
-\end{columns}
 
 # Why do I care?
 
@@ -459,21 +445,10 @@ p.exp_diff
 # Fitting methodologies  
 
 1. *A "trick" prior (BwTPLV)* 
-    - Cancel out normalizing term in the likelihood
-    - Resulting full conditionals of $\boldsymbol \theta$ are multivariate Normal
-    - $h_j$ are carried along as latent variables
-    \begin{align*}
-    \pi(\boldsymbol \theta) \propto \gamma(\boldsymbol \theta)^n \exp\left(-\frac{1}{2C_{1}}\boldsymbol \theta_{main}'\boldsymbol \theta_{main} -\frac{1}{2C_{2}}\boldsymbol \theta_{interaction}'\boldsymbol \theta_{interaction}\right), \vspace{-.75cm}
-    \end{align*}
-    where $C_{2} < C_{1}$ [@li2014biclustering] 
-    
-# Fitting methodologies (cont'd)
-
+    - Cancel out normalizing term in the likelihood, full conditionals of $\boldsymbol \theta$ are multivariate Normal
+    - $h_j$ are carried along as latent variables [@li2014biclustering] 
 2. *A truncated Normal prior (BwTNLV)* 
     - Independent spherical normal distributions as priors for $\boldsymbol \theta_{main}$ and $\boldsymbol \theta_{interaction}$
-        - $\sigma_{interaction} < \sigma_{main}$ 
-        - *truncated* at $3\sigma_{main}$ and $3\sigma_{interaction}$, respectively
-    - Simulation from the posterior using a geometric adaptive MH step [@zhou2014some]
     - $h_j$ are carried along in the MCMC implementation as latent variables 
 3. *A truncated Normal prior and marginalized likelihood (BwTNML)* 
     - Marginalize out $\boldsymbol h$ in $f_{\boldsymbol \theta}(\boldsymbol x)$
@@ -656,7 +631,9 @@ Skeptical that any model built using RBMs (i.e. deep Boltzmann machine) can achi
 
 \begin{center}
 \Huge
-A simple, fast sampler for simulating spatial data and other Markovian data structures
+A simple, fast sampler for simulating spatial data and other Markovian data structures \\
+\vspace{1in}
+\footnotesize Joint work with D. Nordman, M. Kaiser, and S. Lahiri
 \end{center}
 
 # Goal
@@ -773,28 +750,6 @@ $$
 \end{columns}
 \end{block}
 
-# Generalized spatial residuals
-
-\begin{block}{Definition}
-\begin{itemize}
-%\item Let ${\cal R}$ be a spatial lattice on which variables are defined (may be irregular in shape)
-\item   $F(y|\mby(N_i), \mbtheta)$ is the conditional cdf of $Y(\mbs_i)$ under the model
-\item Substitute random variables, $Y(\mbs_i)$ and neighbors $\{Y(\mbs_j): \mbs_j \in N_i \}$, into  (continuous) conditional cdf  to define residuals:
-\begin{displaymath}
-R(\mbs_i) = F(Y(\mbs_i)|\{Y(\mbs_j): \mbs_j \in N_i \}, \mbtheta).
-\end{displaymath}
-\end{itemize}
-\end{block}
-
-\begin{block}{Key Property}
-Let $\{ {\cal C}_j: \, j=1, \ldots, q \}$ be a collection of concliques that partition the integer grid. Under the conditional model, \textbf{spatial residuals {\it within} a conclique are iid  Uniform$(0, 1)$-distributed}: \\
-\begin{displaymath}
-\{ R(\mbs_i): \, \mbs_i \in {\cal C}_j \} \stackrel{iid}{\sim} \mbox{ Uniform}(0, 1) \qquad \text{ for } j=1, \dots, q
-\end{displaymath}
-\end{block}
-
-[@kaiser2012goodness]
-
 # Common Spatial Simulation Approach
 
 With common conditionally specified models for spatial lattice, standard MCMC simulation approach via Gibbs sampling is:
@@ -827,11 +782,9 @@ Using the conditional independence of random variables at locations within a con
 1. Split locations into $Q$ disjoint concliques, $\mathcal{D} = \cup_{i = 1}^Q\mathcal{C}_i$.
 1. Initialize the values of $\{Y^{(0)}(\boldsymbol s): \boldsymbol s \in \{\mathcal{C}_2, \dots, \mathcal{C}_Q\}\}$.
 1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_1$, 
-    a. Sample $\{U(s): s \in \mathcal{C}_1\} \stackrel{iid}{\sim} Unif(0,1)$
-    b. For each $\boldsymbol s \in \mathcal{C}_1$, $Y^{(i)}(\boldsymbol s) = F^{-1}(U(\boldsymbol s)|Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s))$
+    a. For each $\boldsymbol s \in \mathcal{C}_1$, sample $Y^{(i)}(\boldsymbol s) \stackrel{iid}{\sim} F(y(\boldsymbol s)|Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s))$
 1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_j; j =2, \dots, Q$, 
-    a. Sample $\{U(s): s \in \mathcal{C}_2\} \stackrel{iid}{\sim} Unif(0,1)$
-    b. For each $\boldsymbol s \in \mathcal{C}_j$, $Y^{(i)}(\boldsymbol s) = F^{-1}(U(\boldsymbol s)|\{Y^{(i)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k < j\}, \{Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k > j\})$
+    a. For each $\boldsymbol s \in \mathcal{C}_j$, sample $Y^{(i)}(\boldsymbol s) \stackrel{iid}{\sim} F(y(\boldsymbol s)|\{Y^{(i)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k < j\}, \{Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k > j\})$
 
 # It's (provably) fast!
 
@@ -859,7 +812,9 @@ timings %>%
 
 \begin{center}
 \Huge
-Other projects
+Other projects \\
+\vspace{1in}
+\footnotesize Joint works with J. Bien, E. Hare, H. Hofmann, Y. Lin, and D. Nordman
 \end{center}
 
 # Statistical software for teaching
