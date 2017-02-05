@@ -40,10 +40,10 @@ source("helpers/functions.R")
 
 **Goal:** Develop statistical inference via Markov chain Monte Carlo (MCMC) techniques in complex data problems related to statistical learning, the analysis of network/graph data, and spatial resampling.
 
-**Challenge:** Develop implementations which are both *statistically rigorous* and *computationally scalable* by exploiting conditional independence, or Markov structures, in data models. 
+**Challenge:** Develop implementations which are both *statistically rigorous* and *computationally scalable* by exploiting conditional independence. 
 
 1. Statistical quantification of graph models used in deep machine learning and image classification 
-2. New, fast methods for simulating spatial, network, and other data with complex dependencies
+2. New, fast methods for simulating spatial, network, and other data
 3. Developments in interactive graphics and statistical applications for the web
 
 
@@ -81,7 +81,7 @@ A restricted Boltzman machine (RBM) is an undirected probabilistic graphical mod
 
 # Joint distribution
 
-- $\boldsymbol x = (h_1, \dots, h_{\nh}, v_1,\dots,v_{\nv})$ represents visible and hidden nodes in a RBM 
+- $\boldsymbol x = (h_1, \dots, h_{\nh}, v_1,\dots,v_{\nv})$ represents visible and hidden nodes
 - Each single "binary" random variable, visible $v_i$ or hidden $h_j$, takes values in a common coding set 
     - $\mathcal{C}=\{0,1\}$ or $\mathcal{C}=\{-1,1\}$. 
 - A parametric form for probabilities
@@ -103,7 +103,7 @@ A restricted Boltzman machine (RBM) is an undirected probabilistic graphical mod
 
 We want to 
 
-1. Provide steps toward understanding properties of the model class from the perspective of statistical theory
+1. Provide steps toward understanding properties of the model class
 2. Explore the possibility of a rigorous fitting methodology 
 
 # Degeneracy, instability, and uninterpretability. Oh my!
@@ -135,7 +135,7 @@ have a mean vector $\boldsymbol \mu(\boldsymbol \theta)$ close to the boundary o
 # Instability
 
 \begin{definition}[Instability]
-Characterized by excessive sensitivity in the model, where small changes in the components of data outcomes, $\boldsymbol x$, lead to substantial changes in probability.
+Characterized by excessive sensitivity in the model probabilities to changes in the components of data outcomes, $\boldsymbol x$.
 \end{definition}
 
 - Concept of model deficiency related to *instability* for a class of exponential families of distributions [@schweinberger2011instability]
@@ -172,7 +172,7 @@ where $(v_1, \dots, v_\nv) \& (v_1^*, \dots, v_\nv^*) \in \mathcal{C}^\nv$ diffe
 
 \begin{result}
 \label{prop:instab}
-Let $c > 0$ and fix an integer $\nv \ge 1$. If $\frac{1}{\nv}\text{ELPR}(\boldsymbol \theta_\nv) > c$, then $\Delta(\boldsymbol \theta_\nv) > c$.
+Let $c > 0$ and fix $\nv \ge 1$. If $\frac{1}{\nv}\text{ELPR}(\boldsymbol \theta_\nv) > c$, then $\Delta(\boldsymbol \theta_\nv) > c$.
 \end{result}
 
 If the $\nv^{-1}ELPR(\boldsymbol\theta_{\nv})$ is too large, then a RBM model will exhibit large probability shifts for very small changes in the data configuration.
@@ -369,7 +369,6 @@ three_ways$Visibles <- factor(three_ways$Visibles, levels=rev(unique(three_ways$
     2. Allow the two types of terms to have varying average magnitudes, $||\boldsymbol \theta_{main} || /(\nh+\nv)$ and $||\boldsymbol \theta_{interaction} || /(\nh*\nv)$
     3. Average magnitudes vary on a grid between `r min(plot_dat_grid$r1/(plot_dat_grid$H + plot_dat_grid$V))` and `r max(plot_dat_grid$r1/(plot_dat_grid$H + plot_dat_grid$V))` with `r length(unique(plot_dat_grid$r1/(plot_dat_grid$H + plot_dat_grid$V)))` breaks, yielding `r length(unique(plot_dat_grid$r1/(plot_dat_grid$H + plot_dat_grid$V)))^2` grid points
 - Calculate metrics of model impropriety, $\boldsymbol \mu(\boldsymbol \theta)$, $\text{ELPR}(\boldsymbol \theta)/\nv$, and the coordinates of $\left|\text{E}\left[\boldsymbol X | \boldsymbol \theta\right] - \text{E}\left[\boldsymbol X | \boldsymbol \theta^* \right] \right|$. 
-- In the case of *near-degeneracy*, classify each model as near-degenerate or "viable" based on the distance of $\boldsymbol \mu(\boldsymbol \theta)$ from the boundary of the convex hull of $\mathcal{T}$
  
 # Simulation results
 ```{r degen_plots}
@@ -448,7 +447,7 @@ p.exp_diff
     - Cancel out normalizing term in the likelihood, full conditionals of $\boldsymbol \theta$ are multivariate Normal
     - $h_j$ are carried along as latent variables [@li2014biclustering] 
 2. *A truncated Normal prior (BwTNLV)* 
-    - Independent spherical normal distributions as priors for $\boldsymbol \theta_{main}$ and $\boldsymbol \theta_{interaction}$
+    - Independent spherical normals as priors for $\boldsymbol \theta_{main}$ and $\boldsymbol \theta_{interaction}$
     - $h_j$ are carried along in the MCMC implementation as latent variables 
 3. *A truncated Normal prior and marginalized likelihood (BwTNML)* 
     - Marginalize out $\boldsymbol h$ in $f_{\boldsymbol \theta}(\boldsymbol x)$
@@ -788,7 +787,7 @@ Using the conditional independence of random variables at locations within a con
 
 # It's (provably) fast!
 
-1. In many (commonly used) four-nearest neighbor models (including Gaussian and binary), the conclique-based Gibbs sampler is provably **geometrically ergodic**.
+1. In common four-nearest neighbor models (including Gaussian and binary), the conclique-based Gibbs sampler is provably **geometrically ergodic**.
 1. Because we are using batch updating vs. sequential updating of each location, this approach is also **computationally fast**.
 1. A flexible `R` package using `Rcpp` (called `conclique`, to appear on CRAN) that implements a conclique-based Gibbs sampler while allowing the user to specify an arbitrary model.
 
