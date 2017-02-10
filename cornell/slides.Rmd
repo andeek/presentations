@@ -776,14 +776,13 @@ Starting from some initial $\boldsymbol Y_*^{(j)}\equiv\{Y_*^{(j)}(\boldsymbol s
 
 # Conclique-based Gibbs sampler
 
-Using the conditional independence of random variables at locations within a conclique along with the probability integral transform we propose a conclique-based Gibbs sampling algorithm for sampling from a MRF.
+Using the conditional independence of random variables at locations within a conclique we propose a conclique-based Gibbs sampling algorithm for sampling from a MRF.
 
 1. Split locations into $Q$ disjoint concliques, $\mathcal{D} = \cup_{i = 1}^Q\mathcal{C}_i$.
 1. Initialize the values of $\{Y^{(0)}(\boldsymbol s): \boldsymbol s \in \{\mathcal{C}_2, \dots, \mathcal{C}_Q\}\}$.
-1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_1$, 
-    a. For each $\boldsymbol s \in \mathcal{C}_1$, sample $Y^{(i)}(\boldsymbol s) \stackrel{iid}{\sim} F(y(\boldsymbol s)|Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s))$
+    - For each $\boldsymbol s \in \mathcal{C}_1$, sample $Y^{(i)}(\boldsymbol s) \stackrel{iid}{\sim} F(y(\boldsymbol s)|Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s))$
 1. Sample from the conditional distribution of $Y(\boldsymbol s)$ given $\{Y(\boldsymbol t ) : \boldsymbol t \in \mathcal{N}(\boldsymbol s )\}$ for $\boldsymbol s \in \mathcal{C}_j; j =2, \dots, Q$, 
-    a. For each $\boldsymbol s \in \mathcal{C}_j$, sample $Y^{(i)}(\boldsymbol s) \stackrel{iid}{\sim} F(y(\boldsymbol s)|\{Y^{(i)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k < j\}, \{Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k > j\})$
+    - For each $\boldsymbol s \in \mathcal{C}_j$, sample $Y^{(i)}(\boldsymbol s) \stackrel{iid}{\sim} F(y(\boldsymbol s)|\{Y^{(i)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k < j\}, \{Y^{(i-1)}(\boldsymbol t), \boldsymbol t \in \mathcal{N}(\boldsymbol s) \cap \mathcal{C}_k \text{ where } k > j\})$
 
 # It's (provably) fast!
 
