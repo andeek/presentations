@@ -27,11 +27,18 @@
 
     
   
-<section id="get-git-ting" class="titleslide slide level1"><h2 class="shout">Get git-ting!</h2></section><section id="what-is-git-why-do-we-want-it" class="slide level2">
+<section id="get-git-ting" class="slide level2">
+<h2>Get git-ting!</h2>
+<p>Slides are available at <a href="http://bit.ly/git-ladies" class="uri">http://bit.ly/git-ladies</a></p>
+<p><strong>Today’s Goal:</strong> Getting git-ting like a champ with your fellow</p>
+<p><img src="images/r-ladies.jpg" />-ladies.</p>
+</section>
+<section id="what-is-git-why-do-we-want-it" class="slide level2">
 <h2>What is git? Why do we want it?</h2>
 <p><img src="images/git.png" /></p>
 <p><a href="http://xkcd.com/1597/" class="uri">http://xkcd.com/1597/</a></p>
-</section><section id="definitionbackground" class="slide level2">
+</section>
+<section id="definitionbackground" class="slide level2">
 <h2>Definition/background</h2>
 <ul>
 <li><strong>Git</strong> is a version control system that was created to help developers manage collaborative software projects. Git tracks the evolution of a set of files, called a <strong>repository</strong> or <strong>repo</strong>.</li>
@@ -43,7 +50,8 @@
 </ul></li>
 </ul>
 <p><strong>Note:</strong> Thanks to <a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a> for inspiration and material. There is <em>so</em> much more here, so check it out.</p>
-</section><section id="terminology" class="slide level2">
+</section>
+<section id="terminology" class="slide level2">
 <h2>Terminology</h2>
 <ul>
 <li><strong>Repository:</strong> The most basic element of git, imagine as a project’s folder. A repository contains all of the project files, and stores each file’s revision history. Can be either public or private.</li>
@@ -52,7 +60,8 @@
 <li><strong>Commit:</strong> An individual change to a file (or set of files). Every time you save it creates a unique ID that allows you to keep record of what changes were made when and by who.</li>
 <li><strong>Push:</strong> Sending your committed changes to a remote repository such as GitHub.com.</li>
 </ul>
-</section><section id="terminology-contd" class="slide level2">
+</section>
+<section id="terminology-contd" class="slide level2">
 <h2>Terminology (Cont’d)</h2>
 <ul>
 <li><strong>Fork:</strong> A fork is a personal copy of another user’s repository that lives on your account. Forks allow you to freely make changes to a project without affecting the original.</li>
@@ -61,7 +70,8 @@
 <li><strong>Remote:</strong> This is the version of something that is hosted on a server, most likely GitHub.com. It can be connected to local clones so that changes can be synced.</li>
 </ul>
 <p>From <a href="https://help.github.com/articles/github-glossary/" class="uri">https://help.github.com/articles/github-glossary/</a></p>
-</section><section id="github" class="slide level2">
+</section>
+<section id="github" class="slide level2">
 <h2>GitHub</h2>
 <p>There are many hosting services for remote repositories (<a href="github.com">GitHub</a>, <a href="bitbucket.org">Bitbucket</a>, <a href="about.gitlab.com">GitLab</a>, etc.). We will use GitHub in this class, but the ideas carry over to the other services.</p>
 <p>By default, all materials on GitHub are <strong>public</strong>. This is <em>good</em> because you are getting your work out there and contributing to the open source community!</p>
@@ -141,6 +151,28 @@ Add files, commit, push, etc.
 </section><section id="sourcetree" class="slide level2">
 <h2>SourceTree</h2>
 <p><img src="images/source_tree.png" width="100%"/></p>
+</section><section id="your-turn-1" class="slide level2 cover white">
+<h2>Your Turn</h2>
+<!-- image source https://www.flickr.com/photos/ollemhebb/16691684354/in/photolist-rqZfeh-dB2HGy-j4rtWV-cswQCb-bnmKUX-rurYD7-5vmdw6-7iHPtj-bvggjZ-7nwAyK-oVZdhD-acwkds-dqAf8f-e4z5Jk-6PBenY-dSAYZ9-5vmcGR-e4z7be-cyGrpE-7WLPaw-5vmdnn-8ciEWU-5vmcDa-o2NbGq-dxpJTW-cyGt4d-dZy9Sm-dZssjK-oVZ3SB-5BtrCp-e4z5Mk-6bvjNs-8cfk5H-dzTiW2-7Yfj3T-9mraHV-5XmJTS-aDtnzj-ruXg4M-ecF3x2-aAU6Fg-bsQosb-Hgh9UM-kJti5g-ifdCE4-ceXXhf-7AdkFZ-aEDYpr-otaizi-sa1Phn -->
+<p><img src="images/your_turn.jpg" class="cover height" /></p>
+<ol style="color: white">
+<li>
+Install a client
+<ul>
+<li>
+<a href="https://www.sourcetreeapp.com" target=_blank style="color: black">https://www.sourcetreeapp.com</a>
+</li>
+<li>
+There are many other client possibilities: <a href="https://www.gitkraken.com" target=_blank style="color: black">GitKraken</a>, <a href="https://tortoisegit.org" target=_blank style="color: black">TortoiseGit</a>, <a href="https://desktop.github.com" target=_blank style="color: black">GitHub Desktop</a>, etc.
+</li>
+<li>
+Or, you can use the terminal.
+</li>
+</ul>
+<li>
+Clone your <code>hello-world</code> repo
+</li>
+</ol>
 </section><section id="when-should-i-commit" class="slide level2">
 <h2>When should I commit?</h2>
 <p>Think of commits as a checkpoint in a video game. This is a point in time when you want to save your status so that you can come back to it later if need be.</p>
@@ -152,7 +184,11 @@ Add files, commit, push, etc.
 <h2>Blow it up</h2>
 <p>Sometimes your local repo gets borked. That’s OK. There are ways that we can work really hard and fix them, but sometimes you just want to stash your files somewhere and re-clone from your centralized repository.</p>
 <p><img src="images/blow_it_up.gif" /></p>
-</section><section id="your-turn-1" class="slide level2 cover white">
+</section><section id="conflicts" class="slide level2">
+<h2>Conflicts</h2>
+<p>Git’s ability to resolve conflicts is very useful, but conflict resolution costs time and effort, and can introduce errors if conflicts are not resolved correctly.</p>
+<p><img src=images/merge_conflict.png height=300/></p>
+</section><section id="your-turn-2" class="slide level2 cover white">
 <h2>Your Turn</h2>
 <!-- image source https://www.flickr.com/photos/ollemhebb/16691684354/in/photolist-rqZfeh-dB2HGy-j4rtWV-cswQCb-bnmKUX-rurYD7-5vmdw6-7iHPtj-bvggjZ-7nwAyK-oVZdhD-acwkds-dqAf8f-e4z5Jk-6PBenY-dSAYZ9-5vmcGR-e4z7be-cyGrpE-7WLPaw-5vmdnn-8ciEWU-5vmcDa-o2NbGq-dxpJTW-cyGt4d-dZy9Sm-dZssjK-oVZ3SB-5BtrCp-e4z5Mk-6bvjNs-8cfk5H-dzTiW2-7Yfj3T-9mraHV-5XmJTS-aDtnzj-ruXg4M-ecF3x2-aAU6Fg-bsQosb-Hgh9UM-kJti5g-ifdCE4-ceXXhf-7AdkFZ-aEDYpr-otaizi-sa1Phn -->
 <p><img src="images/your_turn.jpg" class="cover height"></p>
@@ -184,22 +220,32 @@ Check out your commit history!
 <p><img src="images/pr.png" width="90%"/></p>
 <p>When you are ready to propose a change to the origin of your fork, place a pull request from your fork to the original repo owned by someone else.</p>
 <p><img src="images/pr_process.png" width="90%"/></p>
+</section><section id="git-ladies-to-git-r-ladies" class="slide level2">
+<h2>Git-ladies to Git-R-ladies</h2>
+<p>Many of your <strong>favorite</strong> <code>R</code> packages are developed on GitHub!</p>
+<ul>
+<li><a href="https://github.com/tidyverse/ggplot2" class="uri">https://github.com/tidyverse/ggplot2</a></li>
+<li><a href="https://github.com/tidyverse/dplyr" class="uri">https://github.com/tidyverse/dplyr</a></li>
+<li><a href="https://github.com/yihui/knitr" class="uri">https://github.com/yihui/knitr</a></li>
+<li><a href="https://github.com/RcppCore/Rcpp" class="uri">https://github.com/RcppCore/Rcpp</a></li>
+</ul>
+<p>Meaning you can contribute!</p>
 </section><section id="section" class="slide level2">
 <h2></h2>
 <p><img src="images/practice.gif" /></p>
-</section><section id="your-turn-2" class="slide level2 cover white">
+</section><section id="your-turn-3" class="slide level2 cover white">
 <h2>Your Turn</h2>
 <!-- image source https://www.flickr.com/photos/ollemhebb/16691684354/in/photolist-rqZfeh-dB2HGy-j4rtWV-cswQCb-bnmKUX-rurYD7-5vmdw6-7iHPtj-bvggjZ-7nwAyK-oVZdhD-acwkds-dqAf8f-e4z5Jk-6PBenY-dSAYZ9-5vmcGR-e4z7be-cyGrpE-7WLPaw-5vmdnn-8ciEWU-5vmcDa-o2NbGq-dxpJTW-cyGt4d-dZy9Sm-dZssjK-oVZ3SB-5BtrCp-e4z5Mk-6bvjNs-8cfk5H-dzTiW2-7Yfj3T-9mraHV-5XmJTS-aDtnzj-ruXg4M-ecF3x2-aAU6Fg-bsQosb-Hgh9UM-kJti5g-ifdCE4-ceXXhf-7AdkFZ-aEDYpr-otaizi-sa1Phn -->
 <p><img src="images/your_turn.jpg" class="cover height"></p>
 <ol style="color: white">
 <li>
-Fork the repo from <a href="https://github.com/andeek/git-ladies" target=_blank style="color:black">https://github.com/andeek/git-ladies</a>
+Fork the repo from <a href="https://github.com/andeek/helloLadies" target=_blank style="color:black">https://github.com/andeek/helloLadies</a>
 </li>
 <li>
 Edit the repo in some way.
 <ul>
 <li>
-Ideas: Edit the readme, add a new file, go nuts!
+Ideas: Edit the readme, add a new R function, add some documentation, find a bug, go nuts!
 </li>
 </ul>
 </li>
@@ -210,7 +256,11 @@ Create a pull request with your changes.
 </section><section id="more-help" class="slide level2">
 <h2>More help</h2>
 <p>We have not covered possible installation issue in this workshop If you would like to work through it on your own, here is an <em>excellent</em> guide: <a href="http://happygitwithr.com/installation-pain.html" class="uri">http://happygitwithr.com/installation-pain.html</a></p>
-<p>More in-depth tutorials: - <a href="http://swcarpentry.github.io/git-novice/" class="uri">http://swcarpentry.github.io/git-novice/</a> - <a href="http://learngitbranching.js.org/" class="uri">http://learngitbranching.js.org/</a></p>
+<p>More in-depth tutorials:</p>
+<ul>
+<li><a href="http://swcarpentry.github.io/git-novice/" class="uri">http://swcarpentry.github.io/git-novice/</a></li>
+<li><a href="http://learngitbranching.js.org/" class="uri">http://learngitbranching.js.org/</a></li>
+</ul>
 </section>
 
   <!--
