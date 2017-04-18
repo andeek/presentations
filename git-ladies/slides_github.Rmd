@@ -1,0 +1,200 @@
+---
+title: "Getting git-ting like a champ"
+author: "Andee Kaplan"
+ratio: 16x10
+output:
+  rmdshower::shower_presentation:
+    self_contained: false
+    katex: true
+    theme: ribbon
+---
+
+# Get git-ting!
+
+## What is git? Why do we want it? 
+
+![](images/git.png)
+
+http://xkcd.com/1597/
+
+## Definition/background
+
+- **Git** is a version control system that was created to help developers manage collaborative software projects. Git tracks the evolution of a set of files, called a **repository** or **repo**. 
+- This helps us
+    - *merge* conflicts that arrise from collaboration
+    - *rollback* to previous versions of files as necessary
+    - store *master* versions of files, no more `paper_final_final_I_really_mean_it.docx`
+
+**Note:** Thanks to http://happygitwithr.com for inspiration and material. There is *so* much more here, so check it out.
+
+## Terminology
+
+- **Repository:** The most basic element of git, imagine as a project's folder. A repository contains all of the project files, and stores each file's revision history. Can be either public or private.
+- **Clone:** A copy of a repository that lives on your computer instead of on a website's server somewhere, or the act of making that copy.
+- **Pull:** When you are fetching in changes and merging them. 
+- **Commit:** An individual change to a file (or set of files). Every time you save it creates a unique ID that allows you to keep record of what changes were made when and by who.
+- **Push:** Sending your committed changes to a remote repository such as GitHub.com.
+
+## Terminology (Cont'd)
+- **Fork:** A fork is a personal copy of another user's repository that lives on your account. Forks allow you to freely make changes to a project without affecting the original. 
+- **Pull Request:** Proposed changes to a repository submitted by a user and accepted or rejected by a repository's collaborators.
+- **Issue:** Issues are suggested improvements, tasks or questions related to the repository. 
+- **Remote:** This is the version of something that is hosted on a server, most likely GitHub.com. It can be connected to local clones so that changes can be synced.
+
+From https://help.github.com/articles/github-glossary/
+
+## GitHub 
+
+There are many hosting services for remote repositories ([GitHub](github.com), [Bitbucket](bitbucket.org), [GitLab](about.gitlab.com), etc.). We will use GitHub in this class, but the ideas carry over to the other services.
+
+By default, all materials on GitHub are **public**. This is *good* because you are getting your work out there and contributing to the open source community! 
+
+If you need **private** repos, checkout [GitHub for Education](https://education.github.com/) - free private repos for students/postdocs/professors.
+
+<center><img src="images/daftpunktocat-guy.gif" height="100px"/></center>
+
+# Doing stuff
+
+## Creating Repos
+
+1. <img src="images/creating1.png" width="90%" style="vertical-align: top" />
+2. <img src="images/creating2.png" width="50%" style="vertical-align: top"/>
+
+Initialize readme (yes), .gitignore (`R` usually), license (e.g. GPL 3)
+
+## Your Turn { .cover .white }
+
+<!-- image source https://www.flickr.com/photos/ollemhebb/16691684354/in/photolist-rqZfeh-dB2HGy-j4rtWV-cswQCb-bnmKUX-rurYD7-5vmdw6-7iHPtj-bvggjZ-7nwAyK-oVZdhD-acwkds-dqAf8f-e4z5Jk-6PBenY-dSAYZ9-5vmcGR-e4z7be-cyGrpE-7WLPaw-5vmdnn-8ciEWU-5vmcDa-o2NbGq-dxpJTW-cyGt4d-dZy9Sm-dZssjK-oVZ3SB-5BtrCp-e4z5Mk-6bvjNs-8cfk5H-dzTiW2-7Yfj3T-9mraHV-5XmJTS-aDtnzj-ruXg4M-ecF3x2-aAU6Fg-bsQosb-Hgh9UM-kJti5g-ifdCE4-ceXXhf-7AdkFZ-aEDYpr-otaizi-sa1Phn -->
+<img src="images/your_turn.jpg" class="cover height" />
+
+<ol style="color: white">
+  <li>Create a GitHub account
+  <ul>
+  <li><a href="http://github.com" target=_blank style="color: black">github.com</a></li>
+  <li>Consider your username, want to be identifiable, professional and probably include your actual name. Do you have other handles? Twitter?</li>
+  <li>Don't worry about paying for a plan now, stick with the free one.</li>
+  </ul></li>
+  <li>Create a `hello-world` repo</li>
+</ol>
+
+## Creating Repos (Cont'd)
+
+<div class="double">
+<strong>From scratch</strong>
+<ol>
+<li>Create the repo on the GitHub website</li>
+<li>Clone the repo</li>
+<li>Start working</li>
+<li>Add files, commit, push, etc.</li>
+</ol>
+<br/>
+<strong>From existing folder</strong>
+<ol>
+<li>Create the repo on the GitHub website</li>
+<li>Clone the repo</li>
+<li>Copy existing work into local folder</li>
+<li>Add files, commit, push, etc.</li>
+</ol>
+
+</div>
+
+
+## Pushing and pulling, a tug of war
+
+<img src="images/workflow.png" width="100%"/>
+
+**Important:** remember to pull before you start working to get the most up to date changes from your collaborators (or your past self) before making local changes!
+
+
+## SourceTree
+
+<img src="images/source_tree.png" width="100%"/>
+
+
+## When should I commit?
+
+Think of commits as a checkpoint in a video game. This is a point in time when you want to save your status so that you can come back to it later if need be.
+
+> Commits are like voting. I like to do it early and often.
+
+*- Me, right now*
+
+
+## Blow it up
+
+Sometimes your local repo gets borked. That's OK. There are ways that we can work really hard and fix them, but sometimes you just want to stash your files somewhere and re-clone from your centralized repository.
+
+![](images/blow_it_up.gif)
+
+
+## Your Turn { .cover .white }
+
+<!-- image source https://www.flickr.com/photos/ollemhebb/16691684354/in/photolist-rqZfeh-dB2HGy-j4rtWV-cswQCb-bnmKUX-rurYD7-5vmdw6-7iHPtj-bvggjZ-7nwAyK-oVZdhD-acwkds-dqAf8f-e4z5Jk-6PBenY-dSAYZ9-5vmcGR-e4z7be-cyGrpE-7WLPaw-5vmdnn-8ciEWU-5vmcDa-o2NbGq-dxpJTW-cyGt4d-dZy9Sm-dZssjK-oVZ3SB-5BtrCp-e4z5Mk-6bvjNs-8cfk5H-dzTiW2-7Yfj3T-9mraHV-5XmJTS-aDtnzj-ruXg4M-ecF3x2-aAU6Fg-bsQosb-Hgh9UM-kJti5g-ifdCE4-ceXXhf-7AdkFZ-aEDYpr-otaizi-sa1Phn -->
+<img src="images/your_turn.jpg" class="cover height">
+
+<ol style="color: white">
+  <li>Edit the README file in your `hello-world` repo</li>
+  <li>Commit and push changes</li>
+  <li>Check out your commit history!</li>
+</ol>
+
+# Collaboration
+
+## (Cy-)Cloning a repo
+If you want a copy of somebody's repository and you also want to track its evolution then you should **clone** it. This allows you to pull from the remote, but will not allow you to push (unless you are a collaborator). 
+
+This is different from downloading a zip of a repo because you can keep your local version up to date with the remote.
+
+<img src="images/clone.png" width="49%" style="vertical-align:top"/><img src="images/sourceTree_clone.png" width="49%"style="vertical-align:top"/>
+
+
+## Forking A (repo)
+If you think you will want to propose a change to a repository, then you should **fork** it instead of cloning it.
+
+<img src="images/fork.png" width="90%"/>
+
+This creates a copy of the original repo in your GitHub profile. You can now clone your own fork and make changes as usual (pull, commit, push) to your fork.
+
+
+## Acheiving that PR
+
+No, not **p**ersonal **r**ecord... **p**ull **r**equest! 
+
+<img src="images/pr.png" width="90%"/>
+
+When you are ready to propose a change to the origin of your fork, place a pull request from your fork to the original repo owned by someone else.
+
+<img src="images/pr_process.png" width="90%"/>
+
+## 
+
+![](images/practice.gif)
+
+## Your Turn { .cover .white }
+
+<!-- image source https://www.flickr.com/photos/ollemhebb/16691684354/in/photolist-rqZfeh-dB2HGy-j4rtWV-cswQCb-bnmKUX-rurYD7-5vmdw6-7iHPtj-bvggjZ-7nwAyK-oVZdhD-acwkds-dqAf8f-e4z5Jk-6PBenY-dSAYZ9-5vmcGR-e4z7be-cyGrpE-7WLPaw-5vmdnn-8ciEWU-5vmcDa-o2NbGq-dxpJTW-cyGt4d-dZy9Sm-dZssjK-oVZ3SB-5BtrCp-e4z5Mk-6bvjNs-8cfk5H-dzTiW2-7Yfj3T-9mraHV-5XmJTS-aDtnzj-ruXg4M-ecF3x2-aAU6Fg-bsQosb-Hgh9UM-kJti5g-ifdCE4-ceXXhf-7AdkFZ-aEDYpr-otaizi-sa1Phn -->
+<img src="images/your_turn.jpg" class="cover height">
+
+<ol style="color: white">
+  <li>Fork the repo from <a href="https://github.com/andeek/git-ladies" target=_blank style="color:black">https://github.com/andeek/git-ladies</a></li>
+  <li>Edit the repo in some way.
+  <ul>
+  <li>Ideas: Edit the readme, add a new file, go nuts!</li>
+  </ul></li>
+  <li>Create a pull request with your changes.</li>
+</ol>
+
+## More help
+
+We have not covered possible installation issue in this workshop If you would like to work through it on your own, here is an *excellent* guide: http://happygitwithr.com/installation-pain.html
+
+More in-depth tutorials:
+- http://swcarpentry.github.io/git-novice/
+- http://learngitbranching.js.org/
+
+
+
+
+
+
+
