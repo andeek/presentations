@@ -1,0 +1,99 @@
+---
+title: "Community Call"
+subtitle: "rOpenSci Software Review and Onboarding"
+date: "2017/09/13 .footnote[Slides: [bit.ly/comm-call](bit.ly/comm-call)]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+# Why review
+
+- Contributing to the `R` community by helping to improve new packages
+
+  * Important to ensure quality of the language
+  
+  * Less time commitment than writing your own package
+  
+--
+
+- Meet new people
+
+--
+
+- Learn new (better) programming practices
+
+  * Continuous integration
+  
+  * Testing suites
+  
+  * Great documentation
+
+--
+
+- Find out about awesome new packages
+
+---
+# How I review
+
+
+![http://gph.is/1LjlEFE](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy-downsized.gif)
+
+(Dramatization)
+
+???
+
+Image credit: [Giphy](http://gph.is/1LjlEFE)
+
+---
+# Workflow
+
+1. Get the goods
+  
+  * `devtools::install_github("username/packagename", build_vignettes = TRUE)`
+  * `git clone git@github.com:username/packagename.git`
+  * Read the `README.md` in case there are extra installation steps
+  
+--
+
+1. Play around
+
+  * `help(package = "packagename")` to see a list of all functions
+  * `vignette(package = "packagename")` to see a list of vignettes
+  * Run example code and vignette code locally
+  * What else could I do? Get creative!
+
+--
+
+1. Check the details
+
+  * `devtools::test()` to run the tests
+  * Poke around `packagename/R` to read code
+  * Don't forget `CONTRIBUTING.md` and `CONDUCT.md`
+
+--
+
+1. Be positive!
+
+
+---
+class: inverse, middle, center
+
+# Demonstration
+
+---
+# How you review
+
+Let us know in the [Google doc](https://docs.google.com/document/d/1kZZkkGKGbPdMNRcODF_PydZ3_I4B8y5fmUaeOAPV1K8/edit)
+
+![http://gph.is/1ULS704](https://media.giphy.com/media/uRb2p09vY8lEs/giphy-downsized.gif)
+
+???
+
+Image credit: [Giphy](http://gph.is/1ULS704)
