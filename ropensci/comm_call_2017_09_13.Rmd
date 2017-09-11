@@ -52,7 +52,7 @@ output:
 Image credit: [Giphy](http://gph.is/1LjlEFE)
 
 ---
-# Workflow
+# Basic workflow
 
 1. Get the goods
   
@@ -85,7 +85,7 @@ Image credit: [Giphy](http://gph.is/1LjlEFE)
 ---
 class: inverse, middle, center
 
-# Demonstration
+# Let me show you
 
 ---
 # How you review
