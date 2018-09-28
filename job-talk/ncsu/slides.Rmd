@@ -1,0 +1,79 @@
+---
+title: "Life After Linkage"
+subtitle: "Inference with Many Messy Datasets"
+shorttitle: "Life After Linkage"
+author: Andee Kaplan
+shortname: Andee Kaplan
+institute: |
+    | Duke University
+    | andrea.kaplan@duke.edu
+shortinstitute: andrea.kaplan@duke.edu
+date: |
+  | October 10, 2018
+  |
+  | Slides available at <http://bit.ly/kaplan-ncsu-2018>
+shortdate: "October 10, 2018"
+output: 
+  beamer_presentation:
+    template: ../resources/latex/beamer.tex
+    includes:
+      in_header: ../resources/latex/front-matter.tex
+theme: Boadilla
+bibliography: ../resources/latex/refs.bib
+fig_caption: true
+---
+
+```{r libraries, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+theme_set(theme_bw())
+
+```
+
+# Outline
+
+1. Record linkage and the downstream task  
+    Very brief literature review and pictures. 
+    (Please do the literature review in 1-2 slides). 
+\vfill
+1. Linear regression/binary classification   
+    Your approach via prototyping. Make this very high level. 
+    (Put all technical details in the backup slides). 
+\vfill
+1. Population size estimation   
+    Here, I would start with just the simulation studies. If you get something on the real results for SV, add this in. 
+\vfill
+1. Other work
+\vfill
+
+
+# Thank you
+
+* Slides -- <http://bit.ly/kaplan-ncsu-2018>
+
+* Contact
+    * Email -- <andrea.kaplan@duke.edu>
+    * Web -- <http://andeekaplan.com>
+    * Twitter -- <http://twitter.com/andeekaplan>
+    * GitHub -- <http://github.com/andeek>
+
+
+
+---
+
+\begin{center}
+\Huge
+Appendix \\
+\end{center}
+
+\appendix
+
+
+# Appendix Slide
+
+# References {.allowframebreaks}
+\tiny
