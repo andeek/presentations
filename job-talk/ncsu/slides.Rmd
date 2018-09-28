@@ -10,8 +10,7 @@ institute: |
 shortinstitute: andrea.kaplan@duke.edu
 date: |
   | October 10, 2018
-  |
-  | Slides available at <http://bit.ly/kaplan-ncsu-2018>
+  | \footnotesize <http://bit.ly/kaplan-ncsu-2018>
 shortdate: "October 10, 2018"
 output: 
   beamer_presentation:
@@ -37,18 +36,41 @@ theme_set(theme_bw())
 # Outline
 
 1. Record linkage and the downstream task  
-    Very brief literature review and pictures. 
-    (Please do the literature review in 1-2 slides). 
+    What is record linkage, and how is it useful?
 \vfill
 1. Linear regression/binary classification   
-    Your approach via prototyping. Make this very high level. 
-    (Put all technical details in the backup slides). 
+    How to represent a linked dataset via prototyping?
 \vfill
 1. Population size estimation   
-    Here, I would start with just the simulation studies. If you get something on the real results for SV, add this in. 
+    How do we count the dead in a civil conflict? When do these estimates fail to capture reality?
 \vfill
-1. Other work
+1. Other work  
+    What else have I been up to?
 \vfill
+
+----
+\begin{center}
+\Huge
+Record Linkage and the downstream task \\
+\end{center}
+
+----
+\begin{center}
+\Huge
+Linear regression/binary classification  \\
+\end{center}
+
+----
+\begin{center}
+\Huge
+Population size estimation  \\
+\end{center}
+
+----
+\begin{center}
+\Huge
+Other work  \\
+\end{center}
 
 
 # Thank you
