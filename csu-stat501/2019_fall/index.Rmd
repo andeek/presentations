@@ -57,7 +57,7 @@ class: center, middle
 
 # About Me
 
-### Name: Andee Kaplan
+### Assistant Professor at CSU (first semester)
 ### From: Houston, TX
 ### Pronouns: She/Her
 
