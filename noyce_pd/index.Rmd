@@ -1,6 +1,6 @@
 ---
 title: "Record Linkage"
-subtitle: "(and Bayesians too)"
+subtitle: "(and Bayesian Statistics too)"
 author: "Andee Kaplan"
 institute: "Colorado State University"
 date: "March 8, 2021"
