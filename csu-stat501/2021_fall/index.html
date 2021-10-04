@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>About Me</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Andee Kaplan" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# About Me
+## (and Record Linkage too)
+### Andee Kaplan
+### Colorado State University
+### 2021/10/04 (updated: 2021-10-04)
+
+---
+
+
+
+
+
+
+
+
+
+
+class: center, middle
+
+# About Me
+
+### Assistant Professor at CSU
+### From: Houston, TX
+### Pronouns: She/Her
+
+---
+background-image: url(https://www.utexas.edu/sites/default/files/styles/utexas_hero_photo_image/public/hero-photos/maincampus_hero.jpg?itok=ZkKrhFki)
+
+# 
+
+### BS in Mathematics from The University of Texas at Austin
+### MA in Mathematics from The University of Texas at Austin
+
+???
+
+Image credit: [UT Austin](https://www.utexas.edu/about/overview)
+
+
+---
+background-image: url("images/kaplan_nordman_isu.jpg")
+background-position: center
+background-size: contain
+class: inverse, bottom, right
+
+# 
+
+### MS in Statistics from Iowa State University
+### PhD in Statistics from Iowa State University
+
+---
+background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/6c/DukeChapelMorning.jpg")
+background-position: center
+background-size: contain
+class: right
+
+### Postdoc at Duke University
+
+???
+
+Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:DukeChapelMorning.jpg)
+
+---
+background-image: url("images/climbing.jpg")
+background-position: center
+background-size: contain
+class: right
+
+### I spend my free time...
+### climbing,
+
+---
+background-image: url("images/hiking.jpg")
+background-position: center
+background-size: cover
+
+### hiking,
+
+---
+background-image: url("images/bikes.jpg")
+background-position: center
+background-size: cover
+
+### and riding bikes.
+
+---
+class: center, middle
+
+# About Record Linkage
+
+### **Record linkage** is the process of merging noisy databases to remove duplicate entities without the use of a unique, identifying attribute
+
+
+---
+# What is record linkage?
+
+
+
+
+
+Insurance records:
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;"&gt; Client Name &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;"&gt; Bill &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; katelyn white &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17176.07 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; thomas steane &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18414.46 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; bethany osseweijer &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8716.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; emma hennicke &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26093.47 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+Hospital records:
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;"&gt; Patient Name &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;"&gt; Glucose &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;"&gt; Blood Pressure &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;"&gt; Insulin &lt;/th&gt;
+   &lt;th style="text-align:right;font-weight: bold;"&gt; Age &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; kaytelyn white &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; tlhomas steane &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 146 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 44 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; betlhalny ossewveijerD &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 102 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 74 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; emma hennicke &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 170 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 225 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; katelyn white &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 117 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+# Can we link on names?
+
+There are clearly typos in some of the names (not exact match)
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;"&gt; Client Name &lt;/th&gt;
+   &lt;th style="text-align:left;font-weight: bold;"&gt; Patient Name &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: #D7261E !important;"&gt; katelyn white &lt;/td&gt;
+   &lt;td style="text-align:left;color: #D7261E !important;"&gt; kaytelyn white &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: #D7261E !important;"&gt; thomas steane &lt;/td&gt;
+   &lt;td style="text-align:left;color: #D7261E !important;"&gt; tlhomas steane &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;color: #D7261E !important;"&gt; bethany osseweijer &lt;/td&gt;
+   &lt;td style="text-align:left;color: #D7261E !important;"&gt; betlhalny ossewveijerD &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; emma hennicke &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; emma hennicke &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; katelyn white &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; katelyn white &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Probabilistic record linkage
+
+- &lt;a name=cite-fellegi1969theory&gt;&lt;/a&gt;[Fellegi and Sunter (1969)](#bib-fellegi1969theory) formalized earlier developments by &lt;a name=cite-newcombe1959automatic&gt;&lt;/a&gt;[Newcombe, Kennedy, Axford, and James (1959)](#bib-newcombe1959automatic) to provide a canonical model (likelihood ratio, semi-supervised) &lt;br/&gt;&lt;br/&gt;
+
+- There are many extensions to Fellegi-Sunter, including more than `\(2\)` databases and preservation of transitivity&lt;sup&gt;1&lt;/sup&gt; &lt;a name=cite-sadinle2013generalized&gt;&lt;/a&gt;([Sadinle and Fienberg, 2013](#bib-sadinle2013generalized)) &lt;br/&gt;&lt;br/&gt;
+
+- Many advancements in Bayesian methods by &lt;a name=cite-steorts2016bayesian&gt;&lt;/a&gt;&lt;a name=cite-steorts2014smered&gt;&lt;/a&gt;&lt;a name=cite-sadinle2014detecting&gt;&lt;/a&gt;&lt;a name=cite-sadinle2017bayesian&gt;&lt;/a&gt;&lt;a name=cite-steorts2015entity&gt;&lt;/a&gt;[Steorts, Hall, and Fienberg (2016)](#bib-steorts2016bayesian); [Steorts, Hall, and Fienberg (2014)](#bib-steorts2014smered); [Sadinle (2014)](#bib-sadinle2014detecting); [Sadinle (2017)](#bib-sadinle2017bayesian); [Steorts (2015)](#bib-steorts2015entity) that fundamentally draw off the work of &lt;a name=cite-copas1990record&gt;&lt;/a&gt;[Copas and Hilton (1990)](#bib-copas1990record) and &lt;a name=cite-tancredi2011hierarchical&gt;&lt;/a&gt;[Tancredi and Liseo (2011)](#bib-tancredi2011hierarchical) 
+
+.footnote[
+[1]: If record `\(i\)` is a match of record `\(j\)` and record `\(j\)` is a match of record `\(k\)`, then `\(i\)` and `\(k\)` are linked
+]
+
+---
+
+# Probabilistic record linkage
+
+&lt;img src="images/rl_links.png" width="90%" /&gt;
+
+---
+
+# Probabilistic record linkage
+
+&lt;img src="images/rl_latent.png" width="90%%" /&gt;
+
+---
+
+# Bayesian hierarchical model 
+
+Notation:
+
+- `\(X_{ij\ell}\)`: observed value of the `\(\ell\)`th field for the `\(j\)`th record in the `\(i\)`th data set, `\(1 \le \ell \le p\)`, `\(1 \leq i \leq k\)`, and `\(1 \leq j \leq n_i\)` &lt;br/&gt;&lt;br/&gt;
+
+
+
+- `\(Y_{j'\ell}\)`: true value of the `\(\ell\)`th field for the `\(j\)`th latent individual &lt;br/&gt;&lt;br/&gt;
+
+
+
+- `\(\Lambda_{ij}\)`: latent individual to which the `\(j\)`th record in the `\(i\)`th list corresponds. `\(\boldsymbol{\Lambda}\)` is the collection of these values &lt;br/&gt;&lt;br/&gt;
+    
+
+
+- `\(z_{ij\ell}\)`: indicator of whether a distortion has occurred for record field value `\(X_{ij\ell}\)` &lt;br/&gt;&lt;br/&gt;
+
+---
+
+# Bayesian hierarchical model 
+
+A hit-and-miss model with empirical priors ([Steorts, 2015](#bib-steorts2015entity)) &lt;br/&gt;&lt;br/&gt;
+
+$$
+`\begin{align*}
+X_{ij\ell} \mid \Lambda_{ij},\,Y_{\Lambda_{ij}\ell},\,z_{ij\ell} &amp;\stackrel{\text{ind}}{\sim}\begin{cases}\delta(Y_{\Lambda_{ij}\ell})&amp;\text{ if }z_{ij\ell}=0\\F_\ell(Y_{\Lambda_{ij}\ell})&amp;\text{ if }z_{ij\ell}=1, \ell\le p_s\\G_\ell&amp;\text{ if }z_{ij\ell}=1, \ell&gt;p_s\end{cases} \\
+Y_{j'\ell}&amp;\stackrel{\text{ind}}{\sim}G_\ell \\
+z_{ij\ell}&amp;\mid\beta_{i\ell}\stackrel{\text{ind}}{\sim}\text{Bernoulli}(\beta_{i\ell})\\
+\beta_{i\ell} &amp;\mid a,b \stackrel{\text{ind}}{\sim}\text{Beta}(a,b)\\
+\Lambda_{ij} &amp;\mid M\stackrel{\text{ind}}{\sim}\text{Uniform}\left(1,\ldots, M\right)
+\end{align*}`
+$$
+---
+
+# Open questions I am interested in
+
+1. Can we create a streaming version of this model so that real time updates can be made? &lt;br/&gt;&lt;br/&gt;
+
+1. How to propagate error from the linkage task into general classes of downstream analysis? &lt;br/&gt;&lt;br/&gt;
+
+1. How to use the latent variables `\(\boldsymbol Y\)` to consolidate records into representative data sets? &lt;br/&gt;&lt;br/&gt;
+
+1. Can we make a more flexible model that does not rely on the independent fields assumption? &lt;br/&gt;&lt;br/&gt;
+
+1. Can we place a more informative prior on `\(\boldsymbol \Lambda\)`? How would we do this? 
+
+---
+
+### Skills I think are useful for record linkage
+
+- Computing (MCMC, Sampling methods, parallelization)
+  
+- Bayesian model building 
+
+- Data manipulation (SQL, `tidyverse`, etc.)
+  
+
+
+### Application areas
+
+- Social science  
+
+  Civilian casualty data in civil conflicts, global political events
+
+- Official statistics  
+
+  Census, logitudinal surveys, voter data
+
+- Public health and biomedical research  
+
+  Electronic health records
+  
+- Ecology
+
+  Capture/Recapture studies, tree demography
+
+
+
+
+
+---
+# References
+
+&lt;a name=bib-copas1990record&gt;&lt;/a&gt;[Copas, J. and F.
+Hilton](#cite-copas1990record) (1990). "Record linkage: statistical
+models for matching computer records". In: _Journal of the Royal
+Statistical Society. Series A (Statistics in Society)_, pp. 287-320.
+
+&lt;a name=bib-fellegi1969theory&gt;&lt;/a&gt;[Fellegi, I. P. and A. B.
+Sunter](#cite-fellegi1969theory) (1969). "A Theory for Record Linkage".
+In: _Journal of the American Statistical Association_ 64.328, pp.
+1183-1210.
+
+&lt;a name=bib-newcombe1959automatic&gt;&lt;/a&gt;[Newcombe, H. B., J. M. Kennedy,
+S. Axford, et al.](#cite-newcombe1959automatic) (1959). "Automatic
+linkage of vital records". In: _Science_ 130.3381, pp. 954-959.
+
+&lt;a name=bib-sadinle2014detecting&gt;&lt;/a&gt;[Sadinle,
+M.](#cite-sadinle2014detecting) (2014). "Detecting duplicates in a
+homicide registry using a Bayesian partitioning approach". In: _The
+Annals of Applied Statistics_ 8.4, pp. 2404-2434.
+
+&lt;a name=bib-sadinle2017bayesian&gt;&lt;/a&gt;[Sadinle,
+M.](#cite-sadinle2017bayesian) (2017). "Bayesian estimation of
+bipartite matchings for record linkage". In: _Journal of the American
+Statistical Association_ 112.518, pp. 600-612.
+
+&lt;a name=bib-sadinle2013generalized&gt;&lt;/a&gt;[Sadinle, M. and S. E.
+Fienberg](#cite-sadinle2013generalized) (2013). "A generalized
+Fellegi-Sunter framework for multiple record linkage with application
+to homicide record systems". In: _Journal of the American Statistical
+Association_ 108.502, pp. 385-397.
+
+---
+# References
+
+&lt;a name=bib-steorts2015entity&gt;&lt;/a&gt;[Steorts, R.
+C.](#cite-steorts2015entity) (2015). "Entity resolution with
+empirically motivated priors". In: _Bayesian Analysis_ 10.4, pp.
+849-875.
+
+&lt;a name=bib-steorts2016bayesian&gt;&lt;/a&gt;[Steorts, R. C., R. Hall, and S. E.
+Fienberg](#cite-steorts2016bayesian) (2016). "A bayesian approach to
+graphical record linkage and deduplication". In: _Journal of the
+American Statistical Association_ 111.516, pp. 1660-1672.
+
+&lt;a name=bib-steorts2014smered&gt;&lt;/a&gt;[Steorts, R., R. Hall, and S.
+Fienberg](#cite-steorts2014smered) (2014). "SMERED: A Bayesian approach
+to graphical record linkage and de-duplication". In: _Artificial
+Intelligence and Statistics_. , pp. 922-930.
+
+&lt;a name=bib-tancredi2011hierarchical&gt;&lt;/a&gt;[Tancredi, A. and B.
+Liseo](#cite-tancredi2011hierarchical) (2011). "A hierarchical Bayesian
+approach to record linkage and population size problems". In: _The
+Annals of Applied Statistics_ 5.2B, pp. 1553-1585.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
