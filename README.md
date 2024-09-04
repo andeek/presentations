@@ -3,7 +3,9 @@ presentations
 
 Repo of presentations/talks that don't fit within another repo.
 
-- 08/28/2022 - CSU STAT 501 - [About Me (and Record Linkage too)](http://andeekaplan.com/presentations/csu-stat501/2022_fall/)
+- 09/04/2024 - CSU STAT 501 - [About Me (and Record Linkage too)](http://andeekaplan.com/presentations/csu-stat501/2024_fall/)
+- 08/28/2023 - CSU STAT 501 - [About Me (and Record Linkage too)](http://andeekaplan.com/presentations/csu-stat501/2023_fall/)
+- 08/29/2022 - CSU STAT 501 - [About Me (and Record Linkage too)](http://andeekaplan.com/presentations/csu-stat501/2022_fall/)
 - 10/04/2021 - CSU STAT 501 - [About Me (and Record Linkage too)](http://andeekaplan.com/presentations/csu-stat501/2021_fall/)
 - 03/08/2021 - CSU Noyce Scholar PD - [Record Linkage (and Bayesian Statistics too)](http://andeekaplan.com/presentations/noyce_pd/)
 - 09/28/2020 - CSU STAT 501 - [About Me (and Record Linkage too)](http://andeekaplan.com/presentations/csu-stat501/2020_fall/)
